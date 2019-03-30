@@ -1,3 +1,5 @@
+using Cabodi.Data.Entities;
+
 namespace Cabodi.Models
 {
     using System;
@@ -14,10 +16,12 @@ namespace Cabodi.Models
 
         public virtual DbSet<PreVenta> FCRMVH { get; set; }
         public virtual DbSet<ItemPreVenta> FCRMVI { get; set; }
-        public virtual DbSet<Producto> STMPDH { get; set; }
-        public virtual DbSet<TipoProducto> STTTPH { get; set; }
+        public virtual DbSet<Producto> Productos { get; set; }
+        public virtual DbSet<TipoProducto> TipoProductos { get; set; }
         public virtual DbSet<Cliente> Clientes { get; set; }
-        public virtual DbSet<Vendedor> VTTVND { get; set; }
+        public virtual DbSet<Vendedor> Vendedores { get; set; }
+        public virtual DbSet<ListaPrecio> ListaPrecios { get; set; }
+
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

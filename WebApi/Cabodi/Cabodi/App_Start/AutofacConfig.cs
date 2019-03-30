@@ -10,6 +10,7 @@ using Autofac.Integration.WebApi;
 using AutoMapper;
 using Cabodi.Controllers;
 using Cabodi.Data;
+using Cabodi.Data.Mapping;
 using Cabodi.Data.Repository;
 using Cabodi.Models;
 
@@ -33,7 +34,19 @@ namespace Cabodi.App_Start
         {
             var config = new MapperConfiguration(cfg => { cfg.AddProfile(new ClienteMappingProfile()); });
 
+            var config2 = new MapperConfiguration(cfg => { cfg.AddProfile(new ListaPrecioMappingProfile()); });
+
+            var config3 = new MapperConfiguration(cfg => { cfg.AddProfile(new ProductoMappingProfile()); });
+
             bldr.RegisterInstance(config.CreateMapper())
+                .As<IMapper>()
+                .SingleInstance();
+
+            bldr.RegisterInstance(config2.CreateMapper())
+                .As<IMapper>()
+                .SingleInstance();
+
+            bldr.RegisterInstance(config3.CreateMapper())
                 .As<IMapper>()
                 .SingleInstance();
 

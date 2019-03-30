@@ -105,3 +105,6 @@ C:\Users\Nicolas Pochettino\source\repos\Cabodi\WebApi\Cabodi\Cabodi\bin\Unity.C
 C:\Users\Nicolas Pochettino\source\repos\Cabodi\WebApi\Cabodi\Cabodi\bin\System.Runtime.CompilerServices.Unsafe.xml
 C:\Users\Nicolas Pochettino\source\repos\Cabodi\WebApi\Cabodi\Cabodi\bin\Unity.Abstractions.pdb
 C:\Users\Nicolas Pochettino\source\repos\Cabodi\WebApi\Cabodi\Cabodi\bin\Unity.Container.pdb
+C:\Users\Nicolas Pochettino\source\repos\Cabodi\WebApi\Cabodi\Cabodi\bin\Microsoft.AspNet.WebApi.Versioning.dll
+C:\Users\Nicolas Pochettino\source\repos\Cabodi\WebApi\Cabodi\Cabodi\bin\Microsoft.AspNet.WebApi.Versioning.pdb
+C:\Users\Nicolas Pochettino\source\repos\Cabodi\WebApi\Cabodi\Cabodi\bin\Microsoft.AspNet.WebApi.Versioning.xml
