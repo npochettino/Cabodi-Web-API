@@ -43,7 +43,7 @@ namespace Cabodi.Controllers.V1_0
                 return await Task.Run(() => Ok(
                     new AuthOutputModel()
                     {
-                        Valid = true,
+                        Valid = model.user == "ZI0026" && model.pass == "ZI0026" ? true : false,
                         Description = ""
                     }));
             }
