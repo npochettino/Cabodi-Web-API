@@ -1,0 +1,53 @@
+/*NEW COLUMN TO MANAGE USER APPS PASSWORD*/
+ALTER TABLE VTMCLH
+ADD USR_VTMCLH_CONAPP VARCHAR(20);
+
+UPDATE VTMCLH SET USR_VTMCLH_CONAPP = VTMCLH_NROCTA WHERE LEFT(VTMCLH_NROCTA,2) = 'ZI'
+
+
+select  * from VMRMVH 
+select * from VTRMVH where VTRMVH_VNDDOR = 'IN0026' order by 3 desc
+select top 100 * from VTRMVI where VTRMVI_NROFOR = 91315
+
+select * from VMRMVH where VMRMVH_NROFOR = 91315
+
+select * from VTRMVH where VTRMVH_NROFOR = 91315
+select * from VTRMVI where VTRMVI_NROFOR = 91315
+
+
+/*Clientes*/
+select * from VTMCLH where  VTMCLH_COBRAD = 'IN0026' order by VTMCLH_NROSUB
+select * from VTMCLH where VTMCLH_COBRAD <> ''
+select VTMCLH_NROCTA from VTMCLH where LEFT(VTMCLH_NROCTA,2) = 'ZI'
+/*Vendedores*/
+select * from VTTVND where VTTVND_VNDDOR = 'IN0026'
+select * from VTMCLH where VTMCLH_NROCTA = 'ZI0026'
+/*PREVENT*/
+select * from FCRMVH where FCRMVH_NROFOR = 91315
+select * from FCRMVI where FCRMVI_NROFOR = 91315 and FCRMVI_CODFOR = 'PREVEN'
+
+/*Productos*/
+select STMPDH_INDCOD,* from STMPDH where STMPDH_TIPPRO = 'MIPR30' order by 1
+/*Tipo Productos*/
+select * from STTTPH
+
+select STTPRE_CODLIS,P.STMPDH_ARTCOD,P.STMPDH_TIPPRO,L.STTPRE_TIPPRO, l.STTPRE_ARTCOD, P.STMPDH_DESCRP,
+STMPDH_INDCOD,L.STTPRE_PRECIO,STMPDH_UNIMED,l.STTPRE_FECLIS from STMPDH P
+join STTPRE L
+on p.STMPDH_ARTCOD = l.STTPRE_ARTCOD
+where p.STMPDH_INDCOD <> '' AND STTPRE_PRECIO > 0
+--and STTPRE_ARTCOD = 'HCA3050P' 
+and P.STMPDH_TIPPRO like 'MI%'
+--and p.STMPDH_INDCOD = '2'
+order by l.STTPRE_FECLIS desc
+
+	select distinct STTPRE_ARTCOD,* from STTPRE where STTPRE_ARTCOD = 'HCA3050P' 
+	--AND STTPRE_CODLIS = 'LPMIIN0001'
+	--and STTPRE_PRECIO = 510
+	order by STTPRE_FECLIS desc--'HEL4050P'
+	select * from STTPRE
+	select * from TSTPRH-- where STTPRO_ARTCOD = 'HEL4050P'
+	
+
+select * from VTRMVI-- order by 3 desc--VTRMVH--VTTVND
+where VMRMVH_NROFOR like '%91882%'

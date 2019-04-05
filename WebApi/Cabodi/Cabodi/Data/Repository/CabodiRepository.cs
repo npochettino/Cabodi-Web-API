@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Web;
 using Cabodi.Data.Entities;
 using Cabodi.Models;
+using Cabodi.Models.Input;
 using Cabodi.Models.Output;
 using Microsoft.Ajax.Utilities;
 
@@ -19,30 +20,30 @@ namespace Cabodi.Data.Repository
         {
             _context = context;
         }
-        
+
+        public async Task<bool> SaveChangesAsync()
+        {
+            // Only return success if at least one row was changed
+            return (await _context.SaveChangesAsync()) > 0;
+        }
+
         //Auth
         public async Task<AuthOutputModel> ValidatePassword(AuthInternalModel model)
         {
             try
             {
-                bool valid;
                 var user = _context.Clientes
                     .Where(u => u.VTMCLH_NROCTA == model.user &&
                                 u.VTMCLH_NROCTA == model.pass &&
                                 u.VTMCLH_NROCTA.Contains("Z"))
                     .FirstOrDefault();
-
-                if (user == null)
-                    valid = false;
-                else
-                    valid = true;
-
-                return new AuthOutputModel()
+                
+                return await Task.Run(() => new AuthOutputModel()
                 {
-                    Valid = valid,
-                    Description = ""
-
-                };
+                    Valid = user == null ? false : true,
+                    Description = "",
+                    nombre = user.VTMCLH_NOMBRE
+                });
 
             }
             catch (Exception ex)
@@ -54,6 +55,15 @@ namespace Cabodi.Data.Repository
 
                 };
             }
+        }
+
+        public async Task<Cliente> GetCliente(string NROCTA)
+        {
+            var cliente = _context.Clientes
+                .Where(c => c.VTMCLH_NROCTA == NROCTA)
+                .FirstOrDefault();
+
+            return await Task.Run(() => cliente);
         }
 
         //Clientes
@@ -86,54 +96,25 @@ namespace Cabodi.Data.Repository
         //Productos
         public async Task<ProductoModel[]> GetProductosAsync()
         {
-            //var query1 = _context.Productos
-            //    .Where(t => t.STMPDH_TIPPRO.Contains("MI") &&
-            //               t.STMPDH_INDCOD.Length > 0)
-            //    .OrderBy(t => t.STMPDH_TIPPRO);
-
-            //var query3 = _context.Productos.GroupJoin(_context.ListaPrecios, p => p.STMPDH_ARTCOD, l => l.STTPRE_ARTCOD,
-            //    (p, l) => new {Producto = p.STMPDH_ARTCOD, TipoProducto = p.STMPDH_TIPPRO, Desc = p.STMPDH_DESCRP, UM = p.STMPDH_UNIMED, Precio = p.STMPDH_UNIMED});
-
-            //var query4 = _context.Productos.Join(_context.ListaPrecios, p => p.STMPDH_ARTCOD, l => l.STTPRE_ARTCOD,
-            //    (p, l) => new
-            //    {
-            //        Producto = p.STMPDH_ARTCOD, TipoProducto = p.STMPDH_TIPPRO, Desc = p.STMPDH_DESCRP,
-            //        UM = p.STMPDH_UNIMED, Precio = l.STTPRE_PRECIO, COD = p.STMPDH_INDCOD, FechaLista = l.STTPRE_FECLIS
-            //    })
-            //    .Where(tp => tp.TipoProducto.Contains("MI"))
-            //    .Where(tp => tp.COD != "" || tp.COD != null)
-            //    .OrderByDescending(l => l.FechaLista)
-            //    .GroupBy(p => p.COD)
-            //    .ToList();
-
-            var query2 = from productos in _context.Productos
-                join lista in _context.ListaPrecios
-                    on productos.STMPDH_ARTCOD equals lista.STTPRE_ARTCOD
-                orderby lista.STTPRE_FECLIS descending
+            var query2 = from lista in _context.ListaPrecios
+                join productos in _context.Productos
+                    on lista.STTPRE_ARTCOD equals productos.STMPDH_ARTCOD
                 where lista.STTPRE_CODLIS == "LPMIIN0001" && 
-                      productos.STMPDH_TIPPRO.Contains("MI") && 
+                      lista.STTPRE_TIPPRO.Contains("MI") && 
                       (productos.STMPDH_INDCOD != null || productos.STMPDH_INDCOD != "")
-                         select new { Producto = productos, ListaPrecio = lista };
+                      select new ProductoModel
+                      {
+                          STMPDH_ARTCOD = productos.STMPDH_ARTCOD,
+                          STMPDH_DESCRP = productos.STMPDH_DESCRP,
+                          STMPDH_INDCOD = productos.STMPDH_INDCOD,
+                          STMPDH_TIPPRO = productos.STMPDH_TIPPRO,
+                          STMPDH_UNIMED = productos.STMPDH_UNIMED,
+                          STTPRE_PRECIO = lista.STTPRE_PRECIO
+                      };
 
-            var grouped = query2.DistinctBy(p => p.Producto.STMPDH_INDCOD).OrderBy(p => p.ListaPrecio.STTPRE_FECLIS);
+            var grouped = query2.OrderByDescending(l => l.STTPRE_PRECIO).DistinctBy(c => c.STMPDH_INDCOD).ToList();
 
-            List<ProductoModel> result = new List<ProductoModel>();
-
-            foreach (var p in grouped)
-            {
-                var obj = new ProductoModel()
-                {
-                    STMPDH_ARTCOD = p.Producto.STMPDH_ARTCOD,
-                    STMPDH_TIPPRO = p.Producto.STMPDH_TIPPRO,
-                    STMPDH_DESCRP = p.Producto.STMPDH_DESCRP,
-                    STMPDH_UNIMED = p.Producto.STMPDH_UNIMED,
-                    STTPRE_PRECIO = p.ListaPrecio.STTPRE_PRECIO,
-                    STMPDH_INDCOD = p.Producto.STMPDH_INDCOD
-                };
-                result.Add(obj);
-            }
-
-            return result.ToArray();
+            return await Task.Run(() => grouped.ToArray());
         }
 
         public async Task<ProductoModel> GetProductoPorINDCODAsync(string INDCOD)
@@ -141,21 +122,20 @@ namespace Cabodi.Data.Repository
             var query2 = from productos in _context.Productos
                 join lista in _context.ListaPrecios
                     on productos.STMPDH_TIPPRO + productos.STMPDH_ARTCOD equals lista.STTPRE_TIPPRO + lista.STTPRE_ARTCOD
-                orderby lista.STTPRE_FECLIS descending
                 where lista.STTPRE_CODLIS == "LPMIIN0001" && productos.STMPDH_INDCOD == INDCOD && productos.STMPDH_TIPPRO.Contains("MI")
-                select new {Producto = productos, ListaPrecio = lista};
+                select new ProductoModel
+                {
+                    STMPDH_ARTCOD = productos.STMPDH_ARTCOD,
+                    STMPDH_DESCRP = productos.STMPDH_DESCRP,
+                    STMPDH_INDCOD = productos.STMPDH_INDCOD,
+                    STMPDH_TIPPRO = productos.STMPDH_TIPPRO,
+                    STMPDH_UNIMED = productos.STMPDH_UNIMED,
+                    STTPRE_PRECIO = lista.STTPRE_PRECIO
+                };
 
-            var obj = new ProductoModel()
-            {
-                STMPDH_ARTCOD = query2.FirstOrDefault().Producto.STMPDH_ARTCOD,
-                STMPDH_TIPPRO = query2.FirstOrDefault().Producto.STMPDH_TIPPRO,
-                STMPDH_DESCRP = query2.FirstOrDefault().Producto.STMPDH_DESCRP,
-                STMPDH_UNIMED = query2.FirstOrDefault().Producto.STMPDH_UNIMED,
-                STTPRE_PRECIO = query2.FirstOrDefault().ListaPrecio.STTPRE_PRECIO,
-                STMPDH_INDCOD = query2.FirstOrDefault().Producto.STMPDH_INDCOD
-            };
+            var grouped = query2.OrderByDescending(l => l.STTPRE_PRECIO).FirstOrDefault();
 
-            return obj;
+            return await Task.Run(() => grouped);
         }
 
         public async Task<Producto> GetProductoPorTIPPRO_ARTCODAsync(string TIPPRO, string ARTCOD)

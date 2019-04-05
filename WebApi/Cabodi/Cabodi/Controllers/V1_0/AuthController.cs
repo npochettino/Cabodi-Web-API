@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using System.Web.Routing;
 using Cabodi.Models;
 using Cabodi.Models.Output;
+using Cabodi.Models.Input;
 
 namespace Cabodi.Controllers.V1_0
 {
@@ -44,13 +45,39 @@ namespace Cabodi.Controllers.V1_0
                     new AuthOutputModel()
                     {
                         Valid = model.user == "ZI0026" && model.pass == "ZI0026" ? true : false,
+                        nombre = model.user == "ZI0026" && model.pass == "ZI0026" ? "Roques, Gustavo" : "",
                         Description = ""
+
                     }));
             }
             else
                 return BadRequest();
         }
 
+        /// <summary>
+        /// Updates the user’s password.
+        /// </summary>
+        /// <param name="model">Update password model</param>
+        /// <response code="200">Password updated successfully</response>
+        /// <response code="400">Incorrect request data</response>
+        /// <response code="401">Unauthorized</response>
+        /// <response code="500">An unexpected error has occured</response>
+        [HttpPut()]
+        public async Task<IHttpActionResult> UpdatePassword([FromBody] UpdatePasswordInputModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                return await Task.Run(() => Ok(
+                    new UpdatePasswordOutputModel()
+                    {
+                        Valid = true,
+                        Description = ""
+                    }));
+            }
+            else
+                return BadRequest();
+
+        }
     }
 }
 
