@@ -14,8 +14,8 @@ namespace Cabodi.Models
         {
         }
 
-        public virtual DbSet<PreVenta> FCRMVH { get; set; }
-        public virtual DbSet<ItemPreVenta> FCRMVI { get; set; }
+        public virtual DbSet<PreVenta> Preventa { get; set; }
+        public virtual DbSet<ItemPreVenta> ItemPreVentas { get; set; }
         public virtual DbSet<Producto> Productos { get; set; }
         public virtual DbSet<TipoProducto> TipoProductos { get; set; }
         public virtual DbSet<Cliente> Clientes { get; set; }

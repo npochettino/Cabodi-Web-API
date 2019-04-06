@@ -9,7 +9,8 @@ namespace Cabodi.Data.Repository
     public interface ICabodiRepository
     {
         Task<Cliente[]> GetClientesAsync();
-        Task<Cliente> GetCliente(string NROCTA);
+        Task<Cliente> GetClienteAsync(string NROCTA);
+        Cliente GetCliente(string NROCTA);
         Task<bool> SaveChangesAsync();
         Task<Cliente[]> GetClientesPorVendedorAsync(string vendedor);
         Task<Vendedor[]> GetVendedoresAsync();
@@ -18,5 +19,9 @@ namespace Cabodi.Data.Repository
         Task<Producto> GetProductoPorTIPPRO_ARTCODAsync(string TIPPRO, string ARTCOD);
         Task<ListaPrecio[]> GetListaDePreciosAsync();
         Task<AuthOutputModel> ValidatePassword(AuthInternalModel authModel);
+        void AddItemPreventa(ItemPreVenta item);
+        void AddPreventa(PreVenta newPreventa);
+
+        PreVenta GetLastPreventa();
     }
 }

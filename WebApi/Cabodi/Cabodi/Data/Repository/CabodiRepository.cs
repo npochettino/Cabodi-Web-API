@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Web;
 using Cabodi.Data.Entities;
@@ -25,6 +26,27 @@ namespace Cabodi.Data.Repository
         {
             // Only return success if at least one row was changed
             return (await _context.SaveChangesAsync()) > 0;
+        }
+
+        public void AddPreventa(PreVenta preventa)
+        {
+            _context.Preventa.Add(preventa);
+        }
+
+        public PreVenta GetLastPreventa()
+        {
+            var last = _context.Preventa
+                .Where(mf => mf.FCRMVH_MODFOR == "FC" 
+                             && mf.FCRMVH_CODFOR == "PREVEN")
+                .OrderByDescending(p => p.FCRMVH_NROFOR)
+                .FirstOrDefault();
+
+            return last;
+        }
+
+        public void AddItemPreventa(ItemPreVenta item)
+        {
+            _context.ItemPreVentas.Add(item);
         }
 
         //Auth
@@ -57,7 +79,7 @@ namespace Cabodi.Data.Repository
             }
         }
 
-        public async Task<Cliente> GetCliente(string NROCTA)
+        public async Task<Cliente> GetClienteAsync(string NROCTA)
         {
             var cliente = _context.Clientes
                 .Where(c => c.VTMCLH_NROCTA == NROCTA)
@@ -82,6 +104,15 @@ namespace Cabodi.Data.Repository
                 .OrderBy(t => t.VTMCLH_APELL1);
 
             return await query.ToArrayAsync();
+        }
+
+        public Cliente GetCliente(string NROCTA)
+        {
+            var cliente = _context.Clientes
+                .Where(c => c.VTMCLH_NROCTA == NROCTA)
+                .FirstOrDefault();
+
+            return cliente;
         }
 
         //Vendedores

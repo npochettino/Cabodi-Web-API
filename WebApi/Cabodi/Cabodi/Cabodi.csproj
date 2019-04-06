@@ -195,14 +195,17 @@
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\V1_0\AuthController.cs" />
     <Compile Include="Controllers\V1_0\ClientesController.cs" />
+    <Compile Include="Controllers\V1_0\PreventaController.cs" />
     <Compile Include="Controllers\V1_0\ProductosController.cs" />
     <Compile Include="Controllers\V2_0\AuthController.cs" />
     <Compile Include="Controllers\V2_0\ClientesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\V2_0\ListaPreciosController.cs" />
+    <Compile Include="Controllers\V2_0\PreventaController.cs" />
     <Compile Include="Controllers\V2_0\ProductosController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Data\CabodiContext.cs" />
+    <Compile Include="Data\Helper\Common.cs" />
     <Compile Include="Data\Mapping\ClienteMappingProfile.cs" />
     <Compile Include="Data\Entities\Cliente.cs" />
     <Compile Include="Data\Entities\ItemPreVenta.cs" />
@@ -212,6 +215,7 @@
     <Compile Include="Data\Entities\TipoProducto.cs" />
     <Compile Include="Data\Entities\Vendedor.cs" />
     <Compile Include="Data\Mapping\ListaPrecioMappingProfile.cs" />
+    <Compile Include="Data\Mapping\PreventaMappingProfile.cs" />
     <Compile Include="Data\Mapping\ProductoMappingProfile.cs" />
     <Compile Include="Data\Repository\CabodiRepository.cs" />
     <Compile Include="Data\Repository\ICabodiRepository.cs" />
@@ -220,6 +224,8 @@
     </Compile>
     <Compile Include="Models\ClienteModel.cs" />
     <Compile Include="Models\Input\AuthInternalModel.cs" />
+    <Compile Include="Models\Input\ItemPreventaInternalModel.cs" />
+    <Compile Include="Models\Input\PreventaInternalModel.cs" />
     <Compile Include="Models\Input\UpdatePasswordInputModel.cs" />
     <Compile Include="Models\ListaPrecioModel.cs" />
     <Compile Include="Models\Output\AuthOutputModel.cs" />

@@ -67,7 +67,7 @@ namespace Cabodi.Controllers.V2_0
             try
             {
 
-                var cliente = await _cabodiRepository.GetCliente(model.VTMCLH_NROCTA);
+                var cliente = await _cabodiRepository.GetClienteAsync(model.VTMCLH_NROCTA);
                 if (cliente == null) return NotFound();
 
                 cliente.USR_VTMCLH_CONAPP = model.USR_VTMCLH_CONAPP;
