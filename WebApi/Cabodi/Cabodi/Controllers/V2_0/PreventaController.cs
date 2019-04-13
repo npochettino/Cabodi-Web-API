@@ -9,6 +9,7 @@ using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
+using System.Web.Management;
 using Cabodi.Models;
 
 namespace Cabodi.Controllers.V2_0
@@ -26,6 +27,23 @@ namespace Cabodi.Controllers.V2_0
             _mapper = mapper;
         }
 
+        [Route("{id}")]
+        [HttpGet]
+        public async Task<IHttpActionResult> GetPreventasPorVendedor(string id)
+        {
+            try
+            {
+                var result = await _cabodiRepository.GetPreventasPorVendedorAsync(id);
+                
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
+            }
+
+        }
+
         [Route()]
         [HttpPost]
         public async Task<IHttpActionResult> CrearPreventa([FromBody] PreventaInternalModel preventa)
@@ -34,17 +52,28 @@ namespace Cabodi.Controllers.V2_0
             {
                 if (ModelState.IsValid)
                 {
-                    PreVenta NewPreventa = MapearPreventa(preventa);
-                    List<ItemPreVenta> Items = MapearItemPreVenta(preventa);
+                    //TODO: Obtener ultimo numero de PREVENTA -> NROFOR
+                    var LastPreventa = _cabodiRepository.GetLastPreventa();
+                    //TODO: Obtener CLIENTE -> DIRENT, PAIENT, CODENT, VNDDOR
+                    var cliente = _cabodiRepository.GetCliente(preventa.NumeroCliente);
+
+                    PreVenta NewPreventa = MapearPreventa(preventa, LastPreventa, cliente);
+                    List<ItemPreVenta> Items = MapearItemPreVenta(preventa, LastPreventa, cliente);
 
                     _cabodiRepository.AddPreventa(NewPreventa);
 
+                    preventa.NumeroPreventa = NewPreventa.FCRMVH_NROFOR;
+
+                    var result = _cabodiRepository.SaveChanges();
+                    
                     foreach (var item in Items)
                         _cabodiRepository.AddItemPreventa(item);
 
                     if (await _cabodiRepository.SaveChangesAsync())
                     {
-                        return Ok();
+                        preventa.NumeroPreventa = NewPreventa.FCRMVH_NROFOR;
+
+                        return Ok(preventa);
                     }
                 }
             }
@@ -56,18 +85,41 @@ namespace Cabodi.Controllers.V2_0
             return BadRequest();
         }
 
-
-        private PreVenta MapearPreventa(PreventaInternalModel preventa)
+        [Route("{id}")]
+        [HttpDelete]
+        public async Task<IHttpActionResult> Delete(int id)
         {
-            //TODO: Obtener ultimo numero de PREVENTA -> NROFOR
-            var LastPreventa = _cabodiRepository.GetLastPreventa();
-            //TODO: Obtener CLIENTE -> DIRENT, PAIENT, CODENT, VNDDOR
-            var cliente = _cabodiRepository.GetCliente(preventa.NumeroCliente);
+            try
+            {
+                var items = await _cabodiRepository.GetItemsPrevenAsync(id);
+                var preven = await _cabodiRepository.GetPrevenAsync(id);
+                if (items == null || preven == null) return NotFound();
 
+                _cabodiRepository.DeleteItemsPreven(items);
+                _cabodiRepository.DeletePreven(preven);
+
+                if (await _cabodiRepository.SaveChangesAsync())
+                {
+                    return Ok();
+                }
+                else
+                {
+                    return InternalServerError();
+                }
+
+            }
+            catch (Exception e)
+            {
+                return InternalServerError();
+            }
+        }
+
+        private PreVenta MapearPreventa(PreventaInternalModel preventa, PreVenta LastPreventa, Cliente cliente)
+        {
             var NewPreventa = new PreVenta()
             {
                 FCRMVH_MODFOR = "FC",
-                FCRMVH_CODFOR = "PREVENT",
+                FCRMVH_CODFOR = "PREVEN",
                 FCRMVH_NROFOR = LastPreventa.FCRMVH_NROFOR + 1,//"OBTENER Nro PREVENTA",
                 FCRMVH_NROGEN = LastPreventa.FCRMVH_NROGEN + 1,//"OBTENER Nro PREVENTA",
                 FCRMVH_CIRCOM = "0100",
@@ -93,7 +145,7 @@ namespace Cabodi.Controllers.V2_0
                 FCRMVH_EMPGEN = "CABODI",
                 FCRMVH_EMPFST = "CABODI",
                 FCRMVH_MODGEN = "FC",
-                FCRMVH_CODGEN = "PREVENT",
+                FCRMVH_CODGEN = "PREVEN",
                 FCRMVH_COFLIS = "PESOS",
                 FCRMVH_COFDEU = "PESOS",
                 FCRMVH_COFFAC = "PESOS",
@@ -107,16 +159,45 @@ namespace Cabodi.Controllers.V2_0
             return NewPreventa;
         }
 
-        private List<ItemPreVenta> MapearItemPreVenta(PreventaInternalModel items)
+        private List<ItemPreVenta> MapearItemPreVenta(PreventaInternalModel items, PreVenta LastPreventa, Cliente cliente)
         {
             List<ItemPreVenta> ItemsPreventa = new List<ItemPreVenta>();
 
             foreach (var i in items.ItemsPreventa)
             {
+                var articulo = _cabodiRepository.GetProductoPorTIPPRO_ARTCOD(i.TipoProducto,i.CodigoArticulo);
+
                 var NewItem = new ItemPreVenta()
                 {
+                    FCRMVI_MODFOR = "FC",
+                    FCRMVI_CODFOR = "PREVEN",
+                    FCRMVI_NROFOR = LastPreventa.FCRMVH_NROFOR + 1,//"OBTENER Nro PREVENTA",
+                    FCRMVI_NROITM = i.NumeroItem,
+                    FCRMVI_NIVEXP = "1",
+                    FCRMVI_MODAPL = "FC",
+                    FCRMVI_CODAPL = "PREVEN",
+                    FCRMVI_NROAPL = LastPreventa.FCRMVH_NROFOR + 1,//"OBTENER Nro PREVENTA",
+                    FCRMVI_ITMAPL = i.NumeroItem,
+                    FCRMVI_EXPAPL = "1",
                     FCRMVI_ARTCOD = i.CodigoArticulo,
-                    FCRMVI_TIPPRO = i.TipoProducto
+                    FCRMVI_TIPPRO = i.TipoProducto,
+                    FCRMVI_MODCPT = cliente.VTMCLH_MODCPT,
+                    FCRMVI_TIPCPT = cliente.VTMCLH_TIPCPT,
+                    FCRMVI_CODCPT = cliente.VTMCLH_CODCPT,
+                    FCRMVI_TIPORI = i.TipoProducto,
+                    FCRMVI_ARTORI = i.CodigoArticulo,
+                    FCRMVI_NROCTA = cliente.VTMCLH_NROCTA,
+                    FCRMVI_NROSUB = cliente.VTMCLH_NROSUB,
+                    FCRMVI_PRECIO = i.Precio,
+                    FCRMVI_CANTID = i.Cantidad,
+                    FCRMVI_UNIMED = articulo.STMPDH_UNIMED,
+                    FCRMVI_UNICON = articulo.STMPDH_UNICON,
+                    FCRMVI_PRENAC = i.Precio,
+                    FCRMVI_TOTLIN = i.Total,
+                    FCRMVI_USERID = cliente.VTMCLH_USERID,
+                    FCRMVI_CODEMP = "CABODI",
+                    FCRMVI_EMPAPL = "CABODI",
+                    FCRMVI_EMPORI = "CABODI"
                 };
 
                 ItemsPreventa.Add(NewItem);

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Web;
+using AutoMapper;
 using Cabodi.Data.Entities;
 using Cabodi.Models;
 using Cabodi.Models.Input;
@@ -16,10 +17,18 @@ namespace Cabodi.Data.Repository
     public class CabodiRepository : ICabodiRepository
     {
         private readonly CabodiContext _context;
+        private readonly IMapper _mapper;
 
-        public CabodiRepository(CabodiContext context)
+        public CabodiRepository(CabodiContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
+        }
+
+        public bool SaveChanges()
+        {
+            // Only return success if at least one row was changed
+            return (_context.SaveChanges()) > 0;
         }
 
         public async Task<bool> SaveChangesAsync()
@@ -33,15 +42,104 @@ namespace Cabodi.Data.Repository
             _context.Preventa.Add(preventa);
         }
 
+        public async Task<ItemPreVenta[]> GetItemsPrevenAsync(int preventID)
+        {
+            var query = _context.ItemPreVentas
+                .Where(p => p.FCRMVI_NROFOR == preventID)
+                .Where(p => p.FCRMVI_MODFOR == "FC" &&
+                            p.FCRMVI_CODFOR == "PREVEN");
+
+            return await Task.Run(() => query.ToArrayAsync());
+        }
+
+        public async Task<PreVenta> GetPrevenAsync(int preventID)
+        {
+            var query = _context.Preventa
+                .Where(p => p.FCRMVH_NROFOR == preventID)
+                .Where(p => p.FCRMVH_MODFOR == "FC" &&
+                       p.FCRMVH_CODFOR == "PREVEN");
+
+            return await Task.Run(() => query.FirstOrDefaultAsync());
+        }
+
+        public void DeleteItemsPreven(ItemPreVenta[] items)
+        {
+            foreach (var item in items)
+            {
+                _context.ItemPreVentas.Remove(item);
+            }
+        }
+
+        public void DeletePreven(PreVenta preven)
+        {
+            _context.Preventa.Remove(preven);
+        }
+    
+
         public PreVenta GetLastPreventa()
         {
-            var last = _context.Preventa
+            var preventa = _context.Preventa
                 .Where(mf => mf.FCRMVH_MODFOR == "FC" 
                              && mf.FCRMVH_CODFOR == "PREVEN")
                 .OrderByDescending(p => p.FCRMVH_NROFOR)
                 .FirstOrDefault();
 
-            return last;
+            return preventa;
+        }
+
+        public async Task<PreventaInternalModel[]> GetPreventasPorVendedorAsync(string id)
+        {
+            var date = DateTime.Now.AddDays(-30);
+            var preventa = _context.Preventa
+                .Where(mf => mf.FCRMVH_MODFOR == "FC"
+                             && mf.FCRMVH_CODFOR == "PREVEN"
+                             && mf.FCRMVH_USERID == id
+                             && mf.FCRMVH_FCHMOV >= date)
+                .ToList();
+
+            var items = _context.ItemPreVentas
+                .Where(i => i.FCRMVI_USERID == id &&
+                            i.FCRMVI_CODFOR == "PREVEN" &&
+                            i.FCRMVI_MODFOR == "FC" &&
+                            i.FCRMVI_FECALT >= date)
+                .ToList();
+
+            var preventas_ = new List<PreventaInternalModel>();
+
+            foreach (var p in preventa)
+            {
+                var itemspreven_ = items.Where(i => i.FCRMVI_NROFOR == p.FCRMVH_NROFOR &&
+                                                    i.FCRMVI_CODFOR == "PREVEN" &&
+                                                    i.FCRMVI_USERID == p.FCRMVH_USERID).ToList();
+                var itemsp_ = new List<ItemPreventaInternalModel>();
+                foreach (var i in itemspreven_)
+                {
+                    var itemActual = new ItemPreventaInternalModel()
+                    {
+                        NumeroItem = i.FCRMVI_NROITM,
+                        Cantidad = i.FCRMVI_CANTID,
+                        CodigoArticulo = i.FCRMVI_ARTCOD,
+                        Precio = i.FCRMVI_PRECIO,
+                        TipoProducto = i.FCRMVI_TIPPRO,
+                        Total = i.FCRMVI_TOTLIN
+                    };
+                    itemsp_.Add(itemActual);
+                }
+
+                var prevenResult = new PreventaInternalModel()
+                {
+                    FechaDesde = p.FCRMVH_FCHDES,
+                    FechaHasta = p.FCRMVH_FCHHAS,
+                    FechaMovimiento = p.FCRMVH_FCHMOV,
+                    NumeroCliente = p.FCRMVH_NROCTA,
+                    UserName = p.FCRMVH_USERID,
+                    NumeroPreventa = p.FCRMVH_NROFOR,
+                    ItemsPreventa = itemsp_
+                };
+                preventas_.Add(prevenResult);
+            }
+
+            return await Task.Run(() => preventas_.ToArray());
         }
 
         public void AddItemPreventa(ItemPreVenta item)
@@ -169,6 +267,28 @@ namespace Cabodi.Data.Repository
             return await Task.Run(() => grouped);
         }
 
+        public ProductoModel GetProductoPorINDCOD(string INDCOD)
+        {
+            var query2 = from productos in _context.Productos
+                join lista in _context.ListaPrecios
+                    on productos.STMPDH_TIPPRO + productos.STMPDH_ARTCOD equals lista.STTPRE_TIPPRO + lista.STTPRE_ARTCOD
+                where lista.STTPRE_CODLIS == "LPMIIN0001" && productos.STMPDH_INDCOD == INDCOD && productos.STMPDH_TIPPRO.Contains("MI")
+                select new ProductoModel
+                {
+                    STMPDH_ARTCOD = productos.STMPDH_ARTCOD,
+                    STMPDH_DESCRP = productos.STMPDH_DESCRP,
+                    STMPDH_INDCOD = productos.STMPDH_INDCOD,
+                    STMPDH_TIPPRO = productos.STMPDH_TIPPRO,
+                    STMPDH_UNIMED = productos.STMPDH_UNIMED,
+                    STTPRE_PRECIO = lista.STTPRE_PRECIO,
+                    STMPDH_UNICON = productos.STMPDH_UNICON
+                };
+
+            var grouped = query2.OrderByDescending(l => l.STTPRE_PRECIO).FirstOrDefault();
+
+            return grouped;
+        }
+
         public async Task<Producto> GetProductoPorTIPPRO_ARTCODAsync(string TIPPRO, string ARTCOD)
         {
             var query = _context.Productos
@@ -177,6 +297,16 @@ namespace Cabodi.Data.Repository
                 .OrderBy(t => t.STMPDH_INDCOD);
 
             return await query.FirstOrDefaultAsync();
+        }
+
+        public Producto GetProductoPorTIPPRO_ARTCOD(string TIPPRO, string ARTCOD)
+        {
+            var query = _context.Productos
+                .Where(t => t.STMPDH_TIPPRO == TIPPRO &&
+                            t.STMPDH_ARTCOD == ARTCOD)
+                .OrderBy(t => t.STMPDH_INDCOD);
+
+            return query.FirstOrDefault();
         }
 
         //Lista de Precios

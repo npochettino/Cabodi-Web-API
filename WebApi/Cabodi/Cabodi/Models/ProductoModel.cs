@@ -17,6 +17,8 @@ namespace Cabodi.Models
 
         public string STMPDH_INDCOD { get; set; }
 
+        public string STMPDH_UNICON { get; set; }
+
         //Precio
         public decimal? STTPRE_PRECIO { get; set; }
     }

@@ -9,6 +9,8 @@ namespace Cabodi.Models.Input
     {
         public DateTime FechaMovimiento { get; set; }
 
+        public int NumeroPreventa { get; set; }
+
         public string NumeroCliente { get; set; }
 
         public DateTime? FechaDesde { get; set; }
