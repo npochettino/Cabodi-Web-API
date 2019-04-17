@@ -26,6 +26,10 @@ namespace Cabodi.Controllers.V2_0
             _mapper = mapper;
         }
 
+        /// <summary>
+        /// Obtener Todos los clientes
+        /// </summary>
+        /// <returns></returns>
         [Route()]
         public async Task<IHttpActionResult> GetClientes()
         {
@@ -45,6 +49,11 @@ namespace Cabodi.Controllers.V2_0
             
         }
 
+        /// <summary>
+        /// Obtener Clientes por Vendedor
+        /// </summary>
+        /// <param name="vendedor"></param>
+        /// <returns></returns>
         [Route("{vendedor}")]
         public async Task<IHttpActionResult> GetClientesPorVendedor(string vendedor)
         {

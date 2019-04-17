@@ -28,7 +28,7 @@ namespace Cabodi.Controllers.V2_0
         }
 
         /// <summary>
-        /// Validates user’s password.
+        /// Validar Acceso del Usuario
         /// </summary>
         /// <param name="model">Validate pasword model</param>
         /// <response code="200">Password validated successfully</response>
@@ -54,7 +54,7 @@ namespace Cabodi.Controllers.V2_0
         }
 
         /// <summary>
-        /// Updates the user’s password.
+        /// Cambiar la Contraseña del Usuario
         /// </summary>
         /// <param name="model">Update password model</param>
         /// <response code="200">Password updated successfully</response>

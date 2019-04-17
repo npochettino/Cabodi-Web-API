@@ -198,7 +198,7 @@ namespace Cabodi.Data.Repository
         public async Task<Cliente[]> GetClientesPorVendedorAsync(string vendedor)
         {
             var query = _context.Clientes
-                .Where(c => c.VTMCLH_COBRAD == vendedor)
+                .Where(c => c.VTMCLH_NRODIS == vendedor)
                 .OrderBy(t => t.VTMCLH_APELL1);
 
             return await query.ToArrayAsync();
@@ -238,6 +238,7 @@ namespace Cabodi.Data.Repository
                           STMPDH_INDCOD = productos.STMPDH_INDCOD,
                           STMPDH_TIPPRO = productos.STMPDH_TIPPRO,
                           STMPDH_UNIMED = productos.STMPDH_UNIMED,
+                          STMPDH_UNICON = productos.STMPDH_UNICON,
                           STTPRE_PRECIO = lista.STTPRE_PRECIO
                       };
 
@@ -259,6 +260,7 @@ namespace Cabodi.Data.Repository
                     STMPDH_INDCOD = productos.STMPDH_INDCOD,
                     STMPDH_TIPPRO = productos.STMPDH_TIPPRO,
                     STMPDH_UNIMED = productos.STMPDH_UNIMED,
+                    STMPDH_UNICON = productos.STMPDH_UNICON,
                     STTPRE_PRECIO = lista.STTPRE_PRECIO
                 };
 

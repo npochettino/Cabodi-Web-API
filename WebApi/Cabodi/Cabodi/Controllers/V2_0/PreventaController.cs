@@ -27,6 +27,11 @@ namespace Cabodi.Controllers.V2_0
             _mapper = mapper;
         }
 
+        /// <summary>
+        /// Obtener todas las PREVENTAS por ID de Vendedor
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [Route("{id}")]
         [HttpGet]
         public async Task<IHttpActionResult> GetPreventasPorVendedor(string id)
@@ -44,6 +49,11 @@ namespace Cabodi.Controllers.V2_0
 
         }
 
+        /// <summary>
+        /// Crear una nueva PREVENTA
+        /// </summary>
+        /// <param name="preventa"></param>
+        /// <returns></returns>
         [Route()]
         [HttpPost]
         public async Task<IHttpActionResult> CrearPreventa([FromBody] PreventaInternalModel preventa)
@@ -85,6 +95,11 @@ namespace Cabodi.Controllers.V2_0
             return BadRequest();
         }
 
+        /// <summary>
+        /// Eliminar PREVENT
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [Route("{id}")]
         [HttpDelete]
         public async Task<IHttpActionResult> Delete(int id)

@@ -25,6 +25,10 @@ namespace Cabodi.Controllers.V2_0
             _mapper = mapper;
         }
 
+        /// <summary>
+        /// Obtener todos los PRODUCTOS
+        /// </summary>
+        /// <returns></returns>
         [Route()]
         public async Task<IHttpActionResult> GetProductos()
         {
@@ -44,6 +48,11 @@ namespace Cabodi.Controllers.V2_0
 
         }
 
+        /// <summary>
+        /// Obtener Producto por INDCOD
+        /// </summary>
+        /// <param name="codigo"></param>
+        /// <returns></returns>
         [Route("{codigo}")]
         public async Task<IHttpActionResult> GetProductoPorINDCODAsync(string codigo)
         {
