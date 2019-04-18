@@ -76,8 +76,5 @@ namespace Cabodi.Data.Entities
 
         [StringLength(10)]
         public string STTPRE_CMPVER { get; set; }
-
-        [StringLength(15)]
-        public string STTPRE_OLDUID { get; set; }
     }
 }

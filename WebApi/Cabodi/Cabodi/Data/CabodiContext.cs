@@ -546,10 +546,6 @@ namespace Cabodi.Models
                 .IsUnicode(false);
 
             modelBuilder.Entity<PreVenta>()
-                .Property(e => e.FCRMVH_OLDUID)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<PreVenta>()
                 .Property(e => e.FCRMVH_EMBARQ)
                 .IsUnicode(false);
 
@@ -1058,10 +1054,6 @@ namespace Cabodi.Models
 
             modelBuilder.Entity<ItemPreVenta>()
                 .Property(e => e.FCRMVI_CMPVER)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<ItemPreVenta>()
-                .Property(e => e.FCRMVI_OLDUID)
                 .IsUnicode(false);
 
             modelBuilder.Entity<ItemPreVenta>()
@@ -1690,10 +1682,6 @@ namespace Cabodi.Models
                 .IsUnicode(false);
 
             modelBuilder.Entity<Producto>()
-                .Property(e => e.STMPDH_OLDUID)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<Producto>()
                 .Property(e => e.STMPDH_CLASIF)
                 .IsUnicode(false);
 
@@ -1881,10 +1869,6 @@ namespace Cabodi.Models
 
             modelBuilder.Entity<TipoProducto>()
                 .Property(e => e.STTTPH_CARATR)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<TipoProducto>()
-                .Property(e => e.STTTPH_OLDUID)
                 .IsUnicode(false);
 
             modelBuilder.Entity<Cliente>()
@@ -2330,10 +2314,6 @@ namespace Cabodi.Models
                 .IsUnicode(false);
 
             modelBuilder.Entity<Cliente>()
-                .Property(e => e.VTMCLH_OLDUID)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<Cliente>()
                 .Property(e => e.VTMCLH_ULTOPR)
                 .IsFixedLength()
                 .IsUnicode(false);
@@ -2451,11 +2431,7 @@ namespace Cabodi.Models
                 .Property(e => e.USR_VTTVND_COMEXT)
                 .HasPrecision(5, 2);
 
-            modelBuilder.Entity<Vendedor>()
-                .Property(e => e.VTTVND_OLDUID)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<Vendedor>()
+           modelBuilder.Entity<Vendedor>()
                 .Property(e => e.VTTVND_ULTOPR)
                 .IsFixedLength()
                 .IsUnicode(false);

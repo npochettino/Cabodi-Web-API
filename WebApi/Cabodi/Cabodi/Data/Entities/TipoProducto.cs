@@ -138,8 +138,5 @@ namespace Cabodi.Models
 
         [StringLength(6)]
         public string STTTPH_CARATR { get; set; }
-
-        [StringLength(15)]
-        public string STTTPH_OLDUID { get; set; }
     }
 }

@@ -20,17 +20,17 @@ select * from VTMCLH where  VTMCLH_COBRAD = 'IN0026' order by VTMCLH_NROSUB
 select * from VTMCLH where VTMCLH_COBRAD <> ''
 select * from VTMCLH where LEFT(VTMCLH_NROCTA,6) = 'VH7172'
 /*Vendedores*/
-select * from VTTVND where VTTVND_VNDDOR = 'IN0026'
-select * from VTMCLH where VTMCLH_NROCTA = 'ZI0026'
+	select * from VTTVND where VTTVND_VNDDOR = 'IN0026'
+	select * from VTMCLH where VTMCLH_COBRAD = 'IN0026'--VTMCLH_NROCTA = 'ZI0026'
 /*PREVENT*/
 select * from VTMCLH where LEFT(VTMCLH_NROCTA,6) = 'VH7172'
-select STMPDH_INDCOD,* from STMPDH where STMPDH_TIPPRO = 'MIPR30'  and STMPDH_ARTCOD = 'HCA3050P' order by 1
-select FCRMVH_FCHDES,FCRMVH_FCHHAS,* from FCRMVH where FCRMVH_NROFOR = 91568 and FCRMVH_CODFOR = 'PREVEN'
-select * from FCRMVI where FCRMVI_NROFOR = 91568 and FCRMVI_CODFOR = 'PREVEN'
+	select STMPDH_INDCOD,* from STMPDH where STMPDH_TIPPRO = 'MIPR30'  and STMPDH_ARTCOD = 'HCA3050P' order by 1
+	select FCRMVH_VNDDOR,FCRMVH_FCHDES,FCRMVH_FCHHAS,* from FCRMVH where FCRMVH_NROFOR = 91567 and FCRMVH_CODFOR = 'PREVEN'
+select * from FCRMVI where FCRMVI_NROFOR = 91567 and FCRMVI_CODFOR = 'PREVEN'
 
 select top(100) * from FCRMVH where FCRMVH_MODFOR = 'FC' and FCRMVH_CODFOR = 'PREVEN' order by FCRMVH_NROFOR desc
 /*Productos*/
-select STMPDH_INDCOD,* from STMPDH where STMPDH_TIPPRO = 'MIPR30'  and STMPDH_ARTCOD = 'HCA3050P' order by 1
+select STMPDH_INDCOD, STMPDH_UNICON, * from STMPDH where STMPDH_TIPPRO = 'MIPR30'  and STMPDH_ARTCOD = 'HCA3050P' order by 1
 /*Tipo Productos*/
 select * from STTTPH
 

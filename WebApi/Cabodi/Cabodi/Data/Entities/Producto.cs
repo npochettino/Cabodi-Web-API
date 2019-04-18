@@ -500,9 +500,6 @@ namespace Cabodi.Models
         [StringLength(4)]
         public string STMPDH_COMORI { get; set; }
 
-        [StringLength(15)]
-        public string STMPDH_OLDUID { get; set; }
-
         [StringLength(1)]
         public string STMPDH_CLASIF { get; set; }
 

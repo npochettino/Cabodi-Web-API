@@ -209,10 +209,11 @@ namespace Cabodi.Controllers.V2_0
                     FCRMVI_UNICON = articulo.STMPDH_UNICON,
                     FCRMVI_PRENAC = i.Precio,
                     FCRMVI_TOTLIN = i.Total,
-                    FCRMVI_USERID = cliente.VTMCLH_USERID,
+                    FCRMVI_USERID = items.UserName,
                     FCRMVI_CODEMP = "CABODI",
                     FCRMVI_EMPAPL = "CABODI",
-                    FCRMVI_EMPORI = "CABODI"
+                    FCRMVI_EMPORI = "CABODI",
+                    FCRMVI_FECALT = items.FechaMovimiento
                 };
 
                 ItemsPreventa.Add(NewItem);

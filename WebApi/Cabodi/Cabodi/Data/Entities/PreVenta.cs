@@ -452,9 +452,6 @@ namespace Cabodi.Models
         [StringLength(6)]
         public string FCRMVH_MOTDEV { get; set; }
 
-        [StringLength(15)]
-        public string FCRMVH_OLDUID { get; set; }
-
         [StringLength(6)]
         public string FCRMVH_EMBARQ { get; set; }
 

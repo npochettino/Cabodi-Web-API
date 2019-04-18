@@ -108,3 +108,4 @@ C:\Users\Nicolas Pochettino\source\repos\Cabodi\WebApi\Cabodi\Cabodi\obj\Debug\C
 C:\Users\Nicolas Pochettino\source\repos\Cabodi\WebApi\Cabodi\Cabodi\obj\Debug\Cabodi.csproj.CopyComplete
 C:\Users\Nicolas Pochettino\source\repos\Cabodi\WebApi\Cabodi\Cabodi\obj\Debug\Cabodi.dll
 C:\Users\Nicolas Pochettino\source\repos\Cabodi\WebApi\Cabodi\Cabodi\obj\Debug\Cabodi.pdb
+C:\Users\Nicolas Pochettino\source\repos\Cabodi\WebApi\Cabodi\Cabodi\obj\Debug\Cabodi.csprojAssemblyReference.cache
