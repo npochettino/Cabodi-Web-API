@@ -402,7 +402,7 @@ namespace Cabodi.Models
         [StringLength(10)]
         public string VTMCLH_CMPVER { get; set; }
 
-        [StringLength(20)]
+        [StringLength(250)]
         public string USR_VTMCLH_CONAPP { get; set; }
     }
 }

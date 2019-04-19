@@ -11,6 +11,7 @@ using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
+using Cabodi.Data.Helper;
 
 namespace Cabodi.Controllers.V2_0
 {
@@ -70,7 +71,9 @@ namespace Cabodi.Controllers.V2_0
                 var cliente = await _cabodiRepository.GetClienteAsync(model.VTMCLH_NROCTA);
                 if (cliente == null) return NotFound();
 
-                cliente.USR_VTMCLH_CONAPP = model.USR_VTMCLH_CONAPP;
+                string EPass = Common.ComputeHash(model.USR_VTMCLH_CONAPP, "SHA512", null);
+
+                cliente.USR_VTMCLH_CONAPP = EPass;
 
                 if (await _cabodiRepository.SaveChangesAsync())
                 {
@@ -87,5 +90,6 @@ namespace Cabodi.Controllers.V2_0
             }
 
         }
+
     }
 }

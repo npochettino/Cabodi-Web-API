@@ -11,6 +11,7 @@ using Cabodi.Models;
 using Cabodi.Models.Input;
 using Cabodi.Models.Output;
 using Microsoft.Ajax.Utilities;
+using Cabodi.Data.Helper;
 
 namespace Cabodi.Data.Repository
 {
@@ -152,17 +153,21 @@ namespace Cabodi.Data.Repository
         {
             try
             {
+                //string EPass = Common.ComputeHash(model.pass, "SHA512", null);
+
                 var user = _context.Clientes
                     .Where(u => u.VTMCLH_NROCTA == model.user &&
-                                u.VTMCLH_NROCTA == model.pass &&
+                                //u.USR_VTMCLH_CONAPP == EPass &&
                                 u.VTMCLH_NROCTA.Contains("Z"))
                     .FirstOrDefault();
-                
+
+                bool flag = Common.VerifyHash(model.pass, "SHA512", user.USR_VTMCLH_CONAPP);
+
                 return await Task.Run(() => new AuthOutputModel()
                 {
-                    Valid = user == null ? false : true,
+                    Valid = flag == false ? false : true,
                     Description = "",
-                    nombre = user.VTMCLH_NOMBRE
+                    nombre = flag == false ? "No Autentificado" : user.VTMCLH_NOMBRE
                 });
 
             }
