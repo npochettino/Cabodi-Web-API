@@ -164,6 +164,7 @@ namespace Cabodi.Controllers.V2_0
                 FCRMVH_COFLIS = "PESOS",
                 FCRMVH_COFDEU = "PESOS",
                 FCRMVH_COFFAC = "PESOS",
+                FCRMVH_TEXTOS = preventa.Observacion,
 
                 FCRMVH_FCHMOV = preventa.FechaMovimiento,
                 FCRMVH_FCHDES = preventa.FechaDesde,
@@ -213,6 +214,7 @@ namespace Cabodi.Controllers.V2_0
                     FCRMVI_CODEMP = "CABODI",
                     FCRMVI_EMPAPL = "CABODI",
                     FCRMVI_EMPORI = "CABODI",
+
                     FCRMVI_FECALT = items.FechaMovimiento
                 };
 

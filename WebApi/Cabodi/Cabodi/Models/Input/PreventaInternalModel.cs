@@ -19,6 +19,8 @@ namespace Cabodi.Models.Input
 
         public string UserName { get; set; }
 
+        public string Observacion { get; set; }
+
         public virtual List<ItemPreventaInternalModel> ItemsPreventa { get; set; }
 
     }
