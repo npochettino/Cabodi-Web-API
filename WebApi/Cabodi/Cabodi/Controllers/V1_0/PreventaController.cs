@@ -34,7 +34,12 @@ namespace Cabodi.Controllers.V1_0
             {
                 if (ModelState.IsValid)
                 {
-
+                    prevent.NumeroPreventa = 99999;
+                    return Ok(prevent);
+                }
+                else
+                {
+                    InternalServerError();
                 }
             }
             catch (Exception ex)
