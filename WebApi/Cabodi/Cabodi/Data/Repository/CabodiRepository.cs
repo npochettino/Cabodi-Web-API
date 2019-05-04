@@ -135,6 +135,7 @@ namespace Cabodi.Data.Repository
                     NumeroCliente = p.FCRMVH_NROCTA,
                     UserName = p.FCRMVH_USERID,
                     NumeroPreventa = p.FCRMVH_NROFOR,
+                    Observacion = p.FCRMVH_TEXTOS,
                     ItemsPreventa = itemsp_
                 };
                 preventas_.Add(prevenResult);
