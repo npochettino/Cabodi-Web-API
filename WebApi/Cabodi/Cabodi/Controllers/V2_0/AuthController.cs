@@ -77,7 +77,16 @@ namespace Cabodi.Controllers.V2_0
 
                 if (await _cabodiRepository.SaveChangesAsync())
                 {
-                    return Ok(_mapper.Map<ClienteModel>(cliente));
+                    //var c = new ClienteModel();
+
+                    //c.Nombre = cliente.VTMCLH_NOMBRE;
+                    //c.NroCuenta = cliente.VTMCLH_NROCTA;
+                    //c.NroVendedor = cliente.VTMCLH_NRODIS;
+                    //c.Password = cliente.USR_VTMCLH_CONAPP;
+                    var c = new AuthOutputModel()
+                        {Valid = true, nombre = cliente.VTMCLH_NOMBRE, Description = "Contraseña Modificada"};
+
+                    return Ok(c);
                 }
                 else
                 {

@@ -31,12 +31,22 @@ namespace Cabodi.Controllers.V1_0
         {
             try
             {
-                var result = await _cabodiRepository.GetClientesAsync();
-
-                //Mapper
-                var mappedResult = _mapper.Map<IEnumerable<ClienteModel>>(result);
-
-                return Ok(mappedResult);
+                return await Task.Run(() => Ok(
+                    new List<ClienteModel>()
+                    {
+                        new  ClienteModel(){ Nombre = "BLANCO, OSCAR ALFREDO", NroCuenta = "VH1255", NroVendedor = "ZI0026"},
+                        new  ClienteModel(){ Nombre = "GUASCO, OSCAR ALFREDO JOSE", NroCuenta = "VH1311", NroVendedor = "ZI0026"},
+                        new  ClienteModel(){ Nombre = "ALBUERNE, DANIEL LEANDRO", NroCuenta = "VH1610", NroVendedor = "ZI0026"},
+                        new  ClienteModel(){ Nombre = "BALLESTER, JOSE LUIS Y OMAR", NroCuenta = "VH1623", NroVendedor = "ZI0022"},
+                        new  ClienteModel(){ Nombre = "COSTAS, OMAR DANIEL", NroCuenta = "VH1635", NroVendedor = "ZI0025"},
+                        new  ClienteModel(){ Nombre = "DENTONE, PEDRO OSMAR", NroCuenta = "VH1655", NroVendedor = "ZI0026"},
+                        new  ClienteModel(){ Nombre = "BLANCO2, OSCAR ALFREDO", NroCuenta = "VH1255", NroVendedor = "ZI0025"},
+                        new  ClienteModel(){ Nombre = "GUASCO2, OSCAR ALFREDO JOSE", NroCuenta = "VH1311", NroVendedor = "ZI0025"},
+                        new  ClienteModel(){ Nombre = "ALBUERNE2, DANIEL LEANDRO", NroCuenta = "VH1610", NroVendedor = "ZI0025"},
+                        new  ClienteModel(){ Nombre = "BALLESTER2, JOSE LUIS Y OMAR", NroCuenta = "VH1623", NroVendedor = "ZI0023"},
+                        new  ClienteModel(){ Nombre = "COSTAS2, OMAR DANIEL", NroCuenta = "VH1635", NroVendedor = "ZI0023"},
+                        new  ClienteModel(){ Nombre = "DENTONE2, PEDRO OSMAR", NroCuenta = "VH1655", NroVendedor = "ZI0023"},
+                    }));
             }
             catch (Exception ex)
             {
@@ -54,16 +64,25 @@ namespace Cabodi.Controllers.V1_0
         {
             try
             {
-                return await Task.Run(() => Ok(
-                    new List<ClienteModel>()
+                var clientes = new List<ClienteModel>()
                     {
-                       new  ClienteModel(){ VTMCLH_NOMBRE = "BLANCO, OSCAR ALFREDO", VTMCLH_NROCTA = "VH1255"}, 
-                       new  ClienteModel(){ VTMCLH_NOMBRE = "GUASCO, OSCAR ALFREDO JOSE", VTMCLH_NROCTA = "VH1311"}, 
-                       new  ClienteModel(){ VTMCLH_NOMBRE = "ALBUERNE, DANIEL LEANDRO", VTMCLH_NROCTA = "VH1610"}, 
-                       new  ClienteModel(){ VTMCLH_NOMBRE = "BALLESTER, JOSE LUIS Y OMAR", VTMCLH_NROCTA = "VH1623"}, 
-                       new  ClienteModel(){ VTMCLH_NOMBRE = "COSTAS, OMAR DANIEL", VTMCLH_NROCTA = "VH1635"}, 
-                       new  ClienteModel(){ VTMCLH_NOMBRE = "DENTONE, PEDRO OSMAR", VTMCLH_NROCTA = "VH1655"}, 
-                    }));
+                        new  ClienteModel(){ Nombre = "BLANCO, OSCAR ALFREDO", NroCuenta = "VH1255", NroVendedor = "ZI0026"},
+                        new  ClienteModel(){ Nombre = "GUASCO, OSCAR ALFREDO JOSE", NroCuenta = "VH1311", NroVendedor = "ZI0026"},
+                        new  ClienteModel(){ Nombre = "ALBUERNE, DANIEL LEANDRO", NroCuenta = "VH1610", NroVendedor = "ZI0026"},
+                        new  ClienteModel(){ Nombre = "BALLESTER, JOSE LUIS Y OMAR", NroCuenta = "VH1623", NroVendedor = "ZI0022"},
+                        new  ClienteModel(){ Nombre = "COSTAS, OMAR DANIEL", NroCuenta = "VH1635", NroVendedor = "ZI0025"},
+                        new  ClienteModel(){ Nombre = "DENTONE, PEDRO OSMAR", NroCuenta = "VH1655", NroVendedor = "ZI0026"},
+                        new  ClienteModel(){ Nombre = "BLANCO2, OSCAR ALFREDO", NroCuenta = "VH1255", NroVendedor = "ZI0025"},
+                        new  ClienteModel(){ Nombre = "GUASCO2, OSCAR ALFREDO JOSE", NroCuenta = "VH1311", NroVendedor = "ZI0025"},
+                        new  ClienteModel(){ Nombre = "ALBUERNE2, DANIEL LEANDRO", NroCuenta = "VH1610", NroVendedor = "ZI0025"},
+                        new  ClienteModel(){ Nombre = "BALLESTER2, JOSE LUIS Y OMAR", NroCuenta = "VH1623", NroVendedor = "ZI0023"},
+                        new  ClienteModel(){ Nombre = "COSTAS2, OMAR DANIEL", NroCuenta = "VH1635", NroVendedor = "ZI0023"},
+                        new  ClienteModel(){ Nombre = "DENTONE2, PEDRO OSMAR", NroCuenta = "VH1655", NroVendedor = "ZI0023"},
+                    };
+                var result = clientes.Where(c => c.NroVendedor == vendedor).ToList();
+                if(result.Count() == 0) return NotFound();
+
+                return await Task.Run(() => Ok(result));
             }
             catch (Exception ex)
             {

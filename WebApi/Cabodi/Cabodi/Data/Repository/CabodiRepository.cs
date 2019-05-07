@@ -90,7 +90,7 @@ namespace Cabodi.Data.Repository
 
         public async Task<PreventaInternalModel[]> GetPreventasPorVendedorAsync(string id)
         {
-            var date = DateTime.Now.AddDays(-30);
+            var date = DateTime.Now.AddDays(-60);
             var preventa = _context.Preventa
                 .Where(mf => mf.FCRMVH_MODFOR == "FC"
                              && mf.FCRMVH_CODFOR == "PREVEN"
@@ -196,6 +196,7 @@ namespace Cabodi.Data.Repository
         public async Task<Cliente[]> GetClientesAsync()
         {
             var query = _context.Clientes
+                .Where(c => c.VTMCLH_NRODIS.Contains("ZI"))
                 .OrderBy(t => t.VTMCLH_APELL1);
 
             return await query.ToArrayAsync();

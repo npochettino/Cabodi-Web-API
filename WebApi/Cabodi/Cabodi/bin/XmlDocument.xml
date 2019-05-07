@@ -508,6 +508,16 @@
             <param name="vendedor"></param>
             <returns></returns>
         </member>
+        <member name="M:Cabodi.Controllers.V1_0.UsersController.GetUsers">
+            <summary>
+            Get All Users.
+            </summary>
+            <param name="model">Validate pasword model</param>
+            <response code="200">Password validated successfully</response>
+            <response code="400">Incorrect request data</response>
+            <response code="401">Unauthorized</response>
+            <response code="500">An unexpected error has occured</response>
+        </member>
         <member name="M:Cabodi.Controllers.V2_0.AuthController.ValidatePassword(Cabodi.Models.AuthInternalModel)">
             <summary>
             Validar Acceso del Usuario

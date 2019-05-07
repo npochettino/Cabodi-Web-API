@@ -39,7 +39,9 @@ namespace Cabodi.Controllers.V2_0
             try
             {
                 var result = await _cabodiRepository.GetPreventasPorVendedorAsync(id);
-                
+
+                if (result == null) return NotFound();
+
                 return Ok(result);
             }
             catch (Exception ex)
@@ -153,7 +155,7 @@ namespace Cabodi.Controllers.V2_0
                 FCRMVH_SECTOR = cliente.VTMCLH_SECTOR,
                 FCRMVH_CODLIS = cliente.VTMCLH_CNDPRE,
                 FCRMVH_JURISD = cliente.VTMCLH_JURISD,
-                FCRMVH_CONIVA = cliente.VTMCLH_CNDIVA,
+                FCRMVH_CNDCOM = cliente.VTMCLH_CNDIVA,
                 FCRMVH_CODZON = cliente.VTMCLH_CODZON,
                 FCRMVH_ISPRCT = "N",
                 FCRMVH_CODEMP = "CABODI",

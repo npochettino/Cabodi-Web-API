@@ -9,6 +9,7 @@ using System.Web.Management;
 using AutoMapper;
 using Cabodi.Data.Repository;
 using Cabodi.Models;
+using Cabodi.Models.Output;
 using Microsoft.Web.Http;
 
 namespace Cabodi.Controllers.V2_0
@@ -37,8 +38,18 @@ namespace Cabodi.Controllers.V2_0
             {
                 var result = await _cabodiRepository.GetClientesAsync();
 
-                //Mapper
-                var mappedResult = _mapper.Map<IEnumerable<ClienteModel>>(result);
+                var mappedResult = new List<ClienteOutputModel>();
+
+                foreach (var cliente in result)
+                {
+                    var c = new ClienteOutputModel()
+                    {
+                        Nombre = cliente.VTMCLH_NOMBRE, NroCuenta = cliente.VTMCLH_NROCTA,
+                        NroVendedor = cliente.VTMCLH_NRODIS
+                    };
+                        
+                    mappedResult.Add(c);
+                }
 
                 return Ok(mappedResult);
             }
@@ -60,12 +71,24 @@ namespace Cabodi.Controllers.V2_0
             try
             {
                 var result = await _cabodiRepository.GetClientesPorVendedorAsync(vendedor);
+
                 if (result == null) return NotFound();
+
+                var mappedResult = new List<ClienteOutputModel>();
+
+                foreach (var cliente in result)
                 {
-                    
+                    var c = new ClienteOutputModel()
+                    {
+                        Nombre = cliente.VTMCLH_NOMBRE,
+                        NroCuenta = cliente.VTMCLH_NROCTA,
+                        NroVendedor = cliente.VTMCLH_NRODIS
+                    };
+
+                    mappedResult.Add(c);
                 }
-                //Mapper
-                return Ok(_mapper.Map<IEnumerable<ClienteModel>>(result));
+
+                return Ok(mappedResult);
             }
             catch (Exception ex)
             {

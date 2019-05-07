@@ -198,6 +198,7 @@
     <Compile Include="Controllers\V1_0\ClientesController.cs" />
     <Compile Include="Controllers\V1_0\PreventaController.cs" />
     <Compile Include="Controllers\V1_0\ProductosController.cs" />
+    <Compile Include="Controllers\V1_0\UsersController.cs" />
     <Compile Include="Controllers\V2_0\AuthController.cs" />
     <Compile Include="Controllers\V2_0\ClientesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -230,6 +231,7 @@
     <Compile Include="Models\Input\UpdatePasswordInputModel.cs" />
     <Compile Include="Models\ListaPrecioModel.cs" />
     <Compile Include="Models\Output\AuthOutputModel.cs" />
+    <Compile Include="Models\Output\ClienteOutputModel.cs" />
     <Compile Include="Models\Output\UpdatePasswordOutputModel.cs" />
     <Compile Include="Models\ProductoModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
