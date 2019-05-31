@@ -62,11 +62,11 @@ namespace Cabodi.Controllers.V1_0
                     {
                         new ItemPreventaInternalModel()
                         {
-                            NumeroItem = 1, CodigoArticulo = "ART0001", TipoProducto = "TPO0001", Precio = 1000, Cantidad = 2, Total = 2000
+                            CodigoArticulo = "ART0001", TipoProducto = "TPO0001", Precio = 1000, Cantidad = 2, Total = 2000
                         },
                         new ItemPreventaInternalModel()
                         {
-                        NumeroItem = 2, CodigoArticulo = "ART0002", TipoProducto = "TPO0001", Precio = 2000, Cantidad = 3, Total = 6000
+                            CodigoArticulo = "ART0002", TipoProducto = "TPO0001", Precio = 2000, Cantidad = 3, Total = 6000
                         }
                     };
 

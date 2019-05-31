@@ -7,19 +7,19 @@ namespace Cabodi.Models
 {
     public class ProductoModel
     {
-        public string STMPDH_TIPPRO { get; set; }
+        public string TipoProducto { get; set; }
 
-        public string STMPDH_ARTCOD { get; set; }
+        public string CodigoArticulo { get; set; }
 
-        public string STMPDH_DESCRP { get; set; }
+        public string Descripcion { get; set; }
 
-        public string STMPDH_UNIMED { get; set; }
+        public string UnidadMedida { get; set; }
 
-        public string STMPDH_INDCOD { get; set; }
+        public string Indcod { get; set; }
 
-        public string STMPDH_UNICON { get; set; }
+        public string Unidad { get; set; }
 
         //Precio
-        public decimal? STTPRE_PRECIO { get; set; }
+        public decimal? Precio { get; set; }
     }
 }

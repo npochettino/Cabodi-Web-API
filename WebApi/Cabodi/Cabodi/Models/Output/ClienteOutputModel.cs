@@ -9,6 +9,7 @@ namespace Cabodi.Models.Output
     {
         public string NroCuenta { get; set; }
         public string Nombre { get; set; }
+        public string Direccion { get; set; }
         public string NroVendedor { get; set; }
     }
 }

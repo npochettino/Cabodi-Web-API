@@ -44,8 +44,8 @@ namespace Cabodi.Controllers.V1_0
                 return await Task.Run(() => Ok(
                     new AuthOutputModel()
                     {
-                        Valid = model.user == "ZI0026" && model.pass == "ZI0026" ? true : false,
-                        nombre = model.user == "ZI0026" && model.pass == "ZI0026" ? "Roques, Gustavo" : "",
+                        Valid = model.NroCuenta == "ZI0026" && model.Password == "ZI0026" ? true : false,
+                        nombre = model.NroCuenta == "ZI0026" && model.Password== "ZI0026" ? "Roques, Gustavo" : "",
                         Description = ""
 
                     }));

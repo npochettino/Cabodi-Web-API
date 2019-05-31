@@ -25,23 +25,23 @@ namespace Cabodi.Controllers.V2_0
             _mapper = mapper;
         }
 
-        [Route()]
-        public async Task<IHttpActionResult> GetListaPreciosAsync()
-        {
-            try
-            {
-                var result = await _cabodiRepository.GetListaDePreciosAsync();
+        //[Route()]
+        //public async Task<IHttpActionResult> GetListaPreciosAsync()
+        //{
+        //    try
+        //    {
+        //        var result = await _cabodiRepository.GetListaDePreciosAsync();
 
-                //Mapper
-                var mappedResult = _mapper.Map<IEnumerable<ListaPrecioModel>>(result);
+        //        //Mapper
+        //        var mappedResult = _mapper.Map<IEnumerable<ListaPrecioModel>>(result);
 
-                return Ok(mappedResult);
-            }
-            catch (Exception ex)
-            {
-                return InternalServerError(ex);
-            }
+        //        return Ok(mappedResult);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return InternalServerError(ex);
+        //    }
 
-        }
+        //}
     }
 }

@@ -34,33 +34,33 @@ namespace Cabodi.Controllers.V1_0
                 {
                     new ProductoModel()
                     {
-                        STMPDH_ARTCOD = "HCAPD50C", STTPRE_PRECIO = 1500, STMPDH_TIPPRO = "MIPRES",
-                        STMPDH_DESCRP = "Harina Pandulcera - Cabodi - Bolsa 50kg Coteada", STMPDH_UNIMED = "BOL50",
-                        STMPDH_INDCOD = "13"
+                        CodigoArticulo = "HCAPD50C", Precio = 1500, TipoProducto = "MIPRES",
+                        Descripcion = "Harina Pandulcera - Cabodi - Bolsa 50kg Coteada", UnidadMedida = "BOL50",
+                        Indcod = "13"
                     },
                     new ProductoModel()
                     {
-                        STMPDH_ARTCOD = "SLICA01G", STTPRE_PRECIO = 25, STMPDH_TIPPRO = "MIPRES",
-                        STMPDH_DESCRP = "Semolin de trigo - Cabodi - Granel", STMPDH_UNIMED = "KILOS",
-                        STMPDH_INDCOD = "24"
+                        CodigoArticulo = "SLICA01G", Precio = 25, TipoProducto = "MIPRES",
+                        Descripcion = "Semolin de trigo - Cabodi - Granel", UnidadMedida = "KILOS",
+                        Indcod = "24"
                     },
                     new ProductoModel()
                     {
-                        STMPDH_ARTCOD = "HCA3025P", STTPRE_PRECIO = 510, STMPDH_TIPPRO = "MIPRES",
-                        STMPDH_DESCRP = "Harina Cabodi 000 Bolsa 25kg Papel", STMPDH_UNIMED = "BOL25",
-                        STMPDH_INDCOD = "18"
+                        CodigoArticulo = "HCA3025P", Precio = 510, TipoProducto = "MIPRES",
+                        Descripcion = "Harina Cabodi 000 Bolsa 25kg Papel", UnidadMedida = "BOL25",
+                        Indcod = "18"
                     },
                     new ProductoModel()
                     {
-                        STMPDH_ARTCOD = "HCA3050P", STTPRE_PRECIO = 1000, STMPDH_TIPPRO = "MIPRES",
-                        STMPDH_DESCRP = "Harina Cabodi 000 Bolsa 50kg Papel", STMPDH_UNIMED = "BOL50",
-                        STMPDH_INDCOD = "2"
+                        CodigoArticulo = "HCA3050P", Precio = 1000, TipoProducto = "MIPRES",
+                        Descripcion = "Harina Cabodi 000 Bolsa 50kg Papel", UnidadMedida = "BOL50",
+                        Indcod = "2"
                     },
                     new ProductoModel()
                     {
-                        STMPDH_ARTCOD = "HESPI50C", STTPRE_PRECIO = 1300, STMPDH_TIPPRO = "MIPRES",
-                        STMPDH_DESCRP = "Harina Pan Ingles - Cabodi - Bolsa 50kg Polipropileno",
-                        STMPDH_UNIMED = "BOL50L", STMPDH_INDCOD = "11"
+                        CodigoArticulo = "HESPI50C", Precio = 1300, TipoProducto = "MIPRES",
+                        Descripcion = "Harina Pan Ingles - Cabodi - Bolsa 50kg Polipropileno",
+                        UnidadMedida = "BOL50L", Indcod = "11"
                     }
                 };
                 
@@ -83,36 +83,36 @@ namespace Cabodi.Controllers.V1_0
                 {
                     new ProductoModel()
                     {
-                        STMPDH_ARTCOD = "HCAPD50C", STTPRE_PRECIO = 1500, STMPDH_TIPPRO = "MIPRES",
-                        STMPDH_DESCRP = "Harina Pandulcera - Cabodi - Bolsa 50kg Coteada", STMPDH_UNIMED = "BOL50",
-                        STMPDH_INDCOD = "13"
+                        CodigoArticulo = "HCAPD50C", Precio = 1500, TipoProducto = "MIPRES",
+                        Descripcion = "Harina Pandulcera - Cabodi - Bolsa 50kg Coteada", UnidadMedida = "BOL50",
+                        Indcod = "13"
                     },
                     new ProductoModel()
                     {
-                        STMPDH_ARTCOD = "SLICA01G", STTPRE_PRECIO = 25, STMPDH_TIPPRO = "MIPRES",
-                        STMPDH_DESCRP = "Semolin de trigo - Cabodi - Granel", STMPDH_UNIMED = "KILOS",
-                        STMPDH_INDCOD = "24"
+                        CodigoArticulo = "SLICA01G", Precio = 25, TipoProducto = "MIPRES",
+                        Descripcion = "Semolin de trigo - Cabodi - Granel", UnidadMedida = "KILOS",
+                        Indcod = "24"
                     },
                     new ProductoModel()
                     {
-                        STMPDH_ARTCOD = "HCA3025P", STTPRE_PRECIO = 510, STMPDH_TIPPRO = "MIPRES",
-                        STMPDH_DESCRP = "Harina Cabodi 000 Bolsa 25kg Papel", STMPDH_UNIMED = "BOL25",
-                        STMPDH_INDCOD = "18"
+                        CodigoArticulo = "HCA3025P", Precio = 510, TipoProducto = "MIPRES",
+                        Descripcion = "Harina Cabodi 000 Bolsa 25kg Papel", UnidadMedida = "BOL25",
+                        Indcod = "18"
                     },
                     new ProductoModel()
                     {
-                        STMPDH_ARTCOD = "HCA3050P", STTPRE_PRECIO = 1000, STMPDH_TIPPRO = "MIPRES",
-                        STMPDH_DESCRP = "Harina Cabodi 000 Bolsa 50kg Papel", STMPDH_UNIMED = "BOL50",
-                        STMPDH_INDCOD = "2"
+                        CodigoArticulo = "HCA3050P", Precio = 1000, TipoProducto = "MIPRES",
+                        Descripcion = "Harina Cabodi 000 Bolsa 50kg Papel", UnidadMedida = "BOL50",
+                        Indcod = "2"
                     },
                     new ProductoModel()
                     {
-                        STMPDH_ARTCOD = "HESPI50C", STTPRE_PRECIO = 1300, STMPDH_TIPPRO = "MIPRES",
-                        STMPDH_DESCRP = "Harina Pan Ingles - Cabodi - Bolsa 50kg Polipropileno",
-                        STMPDH_UNIMED = "BOL50L", STMPDH_INDCOD = "11"
+                        CodigoArticulo = "HESPI50C", Precio = 1300, TipoProducto = "MIPRES",
+                        Descripcion = "Harina Pan Ingles - Cabodi - Bolsa 50kg Polipropileno",
+                        UnidadMedida = "BOL50L", Indcod = "11"
                     }
                 };
-                var result = productos.Where(c => c.STMPDH_INDCOD == codigo).ToList();
+                var result = productos.Where(c => c.Indcod == codigo).ToList();
                 if (result.Count == 0) return NotFound();
 
                 return await Task.Run(() => Ok(result));

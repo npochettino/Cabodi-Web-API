@@ -44,8 +44,8 @@ namespace Cabodi.Controllers.V2_0
                 var validPass = await _cabodiRepository.ValidatePassword(
                     new AuthInternalModel()
                     {
-                        user = model.user,
-                        pass = model.pass
+                        NroCuenta = model.NroCuenta,
+                        Password = model.Password
                     });
 
                 return await Task.Run(() => Ok(validPass));
@@ -63,15 +63,16 @@ namespace Cabodi.Controllers.V2_0
         /// <response code="401">Unauthorized</response>
         /// <response code="500">An unexpected error has occured</response>
         [HttpPut()]
+        [Route()]
         public async Task<IHttpActionResult> UpdatePassword([FromBody] UpdatePasswordInputModel model)
         {
             try
             {
 
-                var cliente = await _cabodiRepository.GetClienteAsync(model.VTMCLH_NROCTA);
+                var cliente = await _cabodiRepository.GetClienteAsync(model.NroCuenta);
                 if (cliente == null) return NotFound();
 
-                string EPass = Common.ComputeHash(model.USR_VTMCLH_CONAPP, "SHA512", null);
+                string EPass = Common.ComputeHash(model.NewPassword, "SHA512", null);
 
                 cliente.USR_VTMCLH_CONAPP = EPass;
 

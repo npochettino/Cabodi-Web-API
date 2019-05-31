@@ -2,11 +2,13 @@
 {
     public class ItemPreventaInternalModel
     {
-        public int NumeroItem { get; set; }
+        //public int NumeroItem { get; set; }
 
         public string TipoProducto { get; set; }
 
         public string CodigoArticulo { get; set; }
+
+        public string DescripcionArticulo { get; set; }
 
         public decimal? Cantidad { get; set; }
 

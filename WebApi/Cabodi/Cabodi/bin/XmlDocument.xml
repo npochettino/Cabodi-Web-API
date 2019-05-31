@@ -553,9 +553,15 @@
         </member>
         <member name="M:Cabodi.Controllers.V2_0.PreventaController.GetPreventasPorVendedor(System.String)">
             <summary>
-            Obtener todas las PREVENTAS por ID de Vendedor
+            Obtener todas las PREVENTAS por ID de Vendedor - Ultimos 15 días
             </summary>
             <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cabodi.Controllers.V2_0.PreventaController.GetItemsPreventa(System.Int32)">
+            <summary>
+            Obtener items de una PREVEN
+            </summary>
             <returns></returns>
         </member>
         <member name="M:Cabodi.Controllers.V2_0.PreventaController.CrearPreventa(Cabodi.Models.Input.PreventaInternalModel)">

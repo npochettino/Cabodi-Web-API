@@ -9,9 +9,9 @@ namespace Cabodi.Models.Input
     public class UpdatePasswordInputModel
     {
         [Required]
-        public string VTMCLH_NROCTA { get; set; }
+        public string NroCuenta { get; set; }
 
         [Required]
-        public string USR_VTMCLH_CONAPP { get; set; }
+        public string NewPassword { get; set; }
     }
 }

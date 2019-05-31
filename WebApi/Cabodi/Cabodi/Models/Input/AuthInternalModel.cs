@@ -7,7 +7,7 @@ namespace Cabodi.Models
 {
     public class AuthInternalModel
     {
-        public string user { get; set; }
-        public string pass { get; set; }
+        public string NroCuenta { get; set; }
+        public string Password { get; set; }
     }
 }

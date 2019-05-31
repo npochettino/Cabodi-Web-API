@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Cabodi.Data.Entities;
 using Cabodi.Models;
 using Cabodi.Models.Input;
@@ -27,6 +28,8 @@ namespace Cabodi.Data.Repository
 
         PreVenta GetLastPreventa();
         Task<PreventaInternalModel[]> GetPreventasPorVendedorAsync(string id);
+        List<PreventaInternalModel> GetPreventasHeaderPorVendedor(string id);
+        List<ItemPreventaInternalModel> GetItemsPreventa(int id);
         Task<ItemPreVenta[]> GetItemsPrevenAsync(int preventID);
         Task<PreVenta> GetPrevenAsync(int preventID);
         void DeleteItemsPreven(ItemPreVenta[] items);
