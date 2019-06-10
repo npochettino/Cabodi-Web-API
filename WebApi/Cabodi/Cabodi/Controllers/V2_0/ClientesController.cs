@@ -85,7 +85,8 @@ namespace Cabodi.Controllers.V2_0
                         Nombre = cliente.VTMCLH_NOMBRE,
                         NroCuenta = cliente.VTMCLH_NROCTA,
                         Direccion = cliente.VTMCLH_DIRECC,
-                        NroVendedor = cliente.VTMCLH_NRODIS
+                        NroVendedor = cliente.VTMCLH_NRODIS,
+                        CondicionIVA = cliente.VTMCLH_CNDIVA
                     };
 
                     mappedResult.Add(c);

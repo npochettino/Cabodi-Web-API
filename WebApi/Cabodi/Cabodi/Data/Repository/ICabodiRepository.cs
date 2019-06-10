@@ -17,6 +17,7 @@ namespace Cabodi.Data.Repository
         Task<Cliente[]> GetClientesPorVendedorAsync(string vendedor);
         Task<Vendedor[]> GetVendedoresAsync();
         Task<ProductoModel[]> GetProductosAsync();
+        Task<ProductoModel[]> GetProductosPorCondicionIVA(string CondicionIVA);
         Task<ProductoModel> GetProductoPorINDCODAsync(string INDCOD);
         ProductoModel GetProductoPorINDCOD(string INDCOD);
         Task<Producto> GetProductoPorTIPPRO_ARTCODAsync(string TIPPRO, string ARTCOD);

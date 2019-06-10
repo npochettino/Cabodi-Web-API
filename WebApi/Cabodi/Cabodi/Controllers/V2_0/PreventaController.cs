@@ -204,6 +204,8 @@ namespace Cabodi.Controllers.V2_0
                 FCRMVH_CNDIVA = cliente.VTMCLH_CNDIVA,
                 FCRMVH_CODZON = cliente.VTMCLH_CODZON,
                 FCRMVH_ISPRCT = "N",
+                FCRMVH_ULTOPR = "A",
+                FCRMVH_DEBAJA = "N",
                 FCRMVH_CODEMP = "CABODI",
                 FCRMVH_EMPGEN = "CABODI",
                 FCRMVH_EMPFST = "CABODI",
@@ -219,12 +221,15 @@ namespace Cabodi.Controllers.V2_0
                 FCRMVH_CAMSEC = 0,
                 FCRMVH_DIAENT = 0,
                 FCRMVH_TEXTOS = preventa.Observacion,
-                FCRMVH_FECLIS = preventa.FechaMovimiento,
+                FCRMVH_FECLIS = preventa.FechaMovimiento.Date,
+                FCRMVH_FECALT = preventa.FechaMovimiento,
+                FCRMVH_FECMOD = preventa.FechaMovimiento,
                 FCRMVH_CONGEL = "S",
-                FCRMVH_FCHMOV = preventa.FechaMovimiento,
+                FCRMVH_FCHMOV = preventa.FechaMovimiento.Date,
                 FCRMVH_FCHDES = preventa.FechaDesde == null ? preventa.FechaMovimiento : preventa.FechaDesde,
                 FCRMVH_FCHHAS = _fechaHasta,  
                 FCRMVH_USERID = preventa.UserName,
+                FCRMVH_OALIAS = "FCRMVH"
             };
 
             return NewPreventa;

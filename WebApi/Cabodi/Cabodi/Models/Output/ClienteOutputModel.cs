@@ -11,5 +11,6 @@ namespace Cabodi.Models.Output
         public string Nombre { get; set; }
         public string Direccion { get; set; }
         public string NroVendedor { get; set; }
+        public string CondicionIVA { get; set; }
     }
 }

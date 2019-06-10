@@ -584,11 +584,10 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Cabodi.Controllers.V2_0.ProductosController.GetProductoPorINDCODAsync(System.String)">
+        <member name="M:Cabodi.Controllers.V2_0.ProductosController.GetProductosPorCondicionIVA(System.String)">
             <summary>
-            Obtener Producto por INDCOD
+            Obtener PRODUCTOS por CondicionIVA Cliente
             </summary>
-            <param name="codigo"></param>
             <returns></returns>
         </member>
     </members>

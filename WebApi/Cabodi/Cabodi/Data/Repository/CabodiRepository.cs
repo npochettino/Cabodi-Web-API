@@ -328,8 +328,8 @@ namespace Cabodi.Data.Repository
             var query2 = from lista in _context.ListaPrecios
                 join productos in _context.Productos
                     on lista.STTPRE_ARTCOD equals productos.STMPDH_ARTCOD
-                where lista.STTPRE_CODLIS == "LPMIIN0001" &&
-                      productos.STMPDH_TIPPRO.Contains("MIPR") && 
+                where (lista.STTPRE_CODLIS == "LPMIIN0001" || lista.STTPRE_CODLIS == "LPMIMO0001") &&
+                      lista.STTPRE_TIPPRO.Contains("MIPR") && 
                       (productos.STMPDH_INDCOD != null || productos.STMPDH_INDCOD != "") &&
                       lista.STTPRE_PRECIO != 0
                          select new ProductoModel
@@ -343,9 +343,37 @@ namespace Cabodi.Data.Repository
                           Precio = lista.STTPRE_PRECIO
                       };
 
-            var grouped = query2.OrderBy(l => l.Descripcion).DistinctBy(c => c.Indcod).ToList();
+            var grouped = query2.OrderBy(l => l.Descripcion).OrderByDescending(p => p.Precio).DistinctBy(c => c.Indcod).ToList();
 
-            return await Task.Run(() => grouped.ToArray());
+            return await Task.Run(() => grouped.OrderBy(d => d.Descripcion).ToArray());
+        }
+
+        public async Task<ProductoModel[]> GetProductosPorCondicionIVA(string CondicionIVA)
+        {
+            var ListaPrecio = CondicionIVA == "RINS" ? "LPMIIN0001" : "LPMIMO0001";
+
+            var query2 = from lista in _context.ListaPrecios
+                join productos in _context.Productos
+                    on lista.STTPRE_ARTCOD equals productos.STMPDH_ARTCOD
+                where (productos.STMPDH_TIPPRO.StartsWith("MIPR") || productos.STMPDH_TIPPRO.StartsWith("MISP")) && 
+                      productos.STMPDH_INDCOD != "" &&
+                      lista.STTPRE_CODLIS == ListaPrecio &&
+                      lista.STTPRE_PRECIO != 0
+                select new ProductoModel
+                {
+                    CodigoArticulo = productos.STMPDH_ARTCOD,
+                    Descripcion = productos.STMPDH_DESCRP,
+                    Indcod = productos.STMPDH_INDCOD,
+                    TipoProducto = productos.STMPDH_TIPPRO,
+                    UnidadMedida = productos.STMPDH_UNIMED,
+                    Unidad = productos.STMPDH_UNICON,
+                    Precio = lista.STTPRE_PRECIO,
+                    FechaLista = lista.STTPRE_FECLIS
+                };
+
+            var grouped = query2.OrderBy(l => l.Descripcion).OrderByDescending(f => f.FechaLista).DistinctBy(c => c.Indcod).ToList();
+
+            return await Task.Run(() => grouped.OrderBy(d => d.Descripcion).ToArray());
         }
 
         public async Task<ProductoModel> GetProductoPorINDCODAsync(string INDCOD)
@@ -353,7 +381,8 @@ namespace Cabodi.Data.Repository
             var query2 = from productos in _context.Productos
                 join lista in _context.ListaPrecios
                     on productos.STMPDH_TIPPRO + productos.STMPDH_ARTCOD equals lista.STTPRE_TIPPRO + lista.STTPRE_ARTCOD
-                where lista.STTPRE_CODLIS == "LPMIIN0001" && productos.STMPDH_INDCOD == INDCOD && productos.STMPDH_TIPPRO.Contains("MIPR")
+                where (lista.STTPRE_CODLIS == "LPMIIN0001" || lista.STTPRE_CODLIS == "LPMIMO0001") && 
+                      productos.STMPDH_INDCOD == INDCOD && productos.STMPDH_TIPPRO.Contains("MIPR")
                 select new ProductoModel
                 {
                     CodigoArticulo = productos.STMPDH_ARTCOD,
