@@ -46,7 +46,7 @@ namespace Cabodi.Controllers.V2_0
                     {
                         Nombre = cliente.VTMCLH_NOMBRE,
                         NroCuenta = cliente.VTMCLH_NROCTA,
-                        Direccion = cliente.VTMCLH_DIRECC,
+                        Direccion = cliente.VTMCLH_DIRENT,
                         NroVendedor = cliente.VTMCLH_NRODIS
                     };
                         
@@ -84,7 +84,7 @@ namespace Cabodi.Controllers.V2_0
                     {
                         Nombre = cliente.VTMCLH_NOMBRE,
                         NroCuenta = cliente.VTMCLH_NROCTA,
-                        Direccion = cliente.VTMCLH_DIRECC,
+                        Direccion = cliente.VTMCLH_DIRENT,
                         NroVendedor = cliente.VTMCLH_NRODIS,
                         CondicionIVA = cliente.VTMCLH_CNDIVA
                     };

@@ -227,11 +227,13 @@
     <Compile Include="Models\ClienteModel.cs" />
     <Compile Include="Models\Input\AuthInternalModel.cs" />
     <Compile Include="Models\Input\ItemPreventaInternalModel.cs" />
+    <Compile Include="Models\Input\PrevapFilterInputModel.cs" />
     <Compile Include="Models\Input\PreventaInternalModel.cs" />
     <Compile Include="Models\Input\UpdatePasswordInputModel.cs" />
     <Compile Include="Models\ListaPrecioModel.cs" />
     <Compile Include="Models\Output\AuthOutputModel.cs" />
     <Compile Include="Models\Output\ClienteOutputModel.cs" />
+    <Compile Include="Models\Output\PrevapOutputModel.cs" />
     <Compile Include="Models\Output\UpdatePasswordOutputModel.cs" />
     <Compile Include="Models\ProductoModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

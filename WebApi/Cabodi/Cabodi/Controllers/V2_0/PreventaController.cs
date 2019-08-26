@@ -28,27 +28,92 @@ namespace Cabodi.Controllers.V2_0
         }
 
         /// <summary>
-        /// Obtener todas las PREVENTAS por ID de Vendedor - Ultimos 15 días
+        /// GET PREVAP Filtradas por cliente, vendedor y rango de fechas
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="model"></param>
         /// <returns></returns>
-        [Route("{id}")]
+        [Route("filtro")]
         [HttpGet]
-        public async Task<IHttpActionResult> GetPreventasPorVendedor(string id)
+        public async Task<IHttpActionResult> GetPreventasFiltradas([FromUri] string numeroVendedor, string numeroCliente, string fechaDesde, string fechaHasta)
         {
             try
             {
-                var result = await _cabodiRepository.GetPreventasPorVendedorAsync(id);
-                //var result = _cabodiRepository.GetPreventasHeaderPorVendedor(id);
+                DateTime fromDateParam = !string.IsNullOrEmpty(fechaDesde) ? DateTime.Parse(fechaDesde) : DateTime.Today.AddYears(-1);
+                DateTime toDateParam = !string.IsNullOrEmpty(fechaHasta) ? DateTime.Parse(fechaHasta) : DateTime.Today;
+
+                PrevapFilterInputModel model = new PrevapFilterInputModel()
+                {
+                    FechaDesde = fromDateParam, FechaHasta = toDateParam, NumeroCliente = numeroCliente,
+                    NumeroVendedor = numeroVendedor
+                };
+
+                var result = await _cabodiRepository.GetPreventasPorVendedorAsync(model);
 
                 if (result == null) return NotFound();
-
                 return Ok(result);
+                    
             }
             catch (Exception ex)
             {
                 return InternalServerError(ex);
             }
+        }
+
+        /// <summary>
+        /// GET PREVAP Filtradas por cliente, vendedor y rango de fechas
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        [Route("historico")]
+        [HttpPost]
+        public async Task<IHttpActionResult> GetPreventasHistorico([FromBody] PrevapFilterInputModel model)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    var result = await _cabodiRepository.GetPreventasPorVendedorAsync(model);
+
+                if (result == null) return NotFound();
+
+                return Ok(result);
+                }
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
+            }
+
+            return BadRequest();
+
+        }
+
+        /// <summary>
+        /// Obtener PREVAP Filtradas
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        [Route()]
+        [HttpGet]
+        public async Task<IHttpActionResult> GetPreventasPorVendedor(PrevapFilterInputModel model)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    var result = await _cabodiRepository.GetPreventasPorVendedorAsync(model);
+
+                    if (result == null) return NotFound();
+
+                    return Ok(result);
+                }
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
+            }
+
+            return BadRequest();
 
         }
 
@@ -89,12 +154,12 @@ namespace Cabodi.Controllers.V2_0
                 if (ModelState.IsValid)
                 {
                     //TODO: Obtener ultimo numero de PREVENTA -> NROFOR
-                    var LastPreventa = _cabodiRepository.GetLastPreventa();
+                    var LastPrevap = _cabodiRepository.GetLastNroPrevap();
                     //TODO: Obtener CLIENTE -> DIRENT, PAIENT, CODENT, VNDDOR
                     var cliente = _cabodiRepository.GetCliente(preventa.NumeroCliente);
 
-                    PreVenta NewPreventa = MapearPreventa(preventa, LastPreventa, cliente);
-                    List<ItemPreVenta> Items = MapearItemPreVenta(preventa, LastPreventa, cliente);
+                    PreVenta NewPreventa = MapearPreventa(preventa, LastPrevap, cliente);
+                    List<ItemPreVenta> Items = MapearItemPreVenta(preventa, LastPrevap, cliente);
 
                     _cabodiRepository.AddPreventa(NewPreventa);
 
@@ -160,7 +225,7 @@ namespace Cabodi.Controllers.V2_0
             }
         }
 
-        private PreVenta MapearPreventa(PreventaInternalModel preventa, PreVenta LastPreventa, Cliente cliente)
+        private PreVenta MapearPreventa(PreventaInternalModel preventa, int LastPrevap, Cliente cliente)
         {
             DateTime? _fechaHasta;
             if (preventa.FechaHasta == null)
@@ -182,9 +247,9 @@ namespace Cabodi.Controllers.V2_0
             var NewPreventa = new PreVenta()
             {
                 FCRMVH_MODFOR = "FC",
-                FCRMVH_CODFOR = "PREVEN",
-                FCRMVH_NROFOR = LastPreventa.FCRMVH_NROFOR + 1,//"OBTENER Nro PREVENTA",
-                FCRMVH_NROGEN = LastPreventa.FCRMVH_NROGEN + 1,//"OBTENER Nro PREVENTA",
+                FCRMVH_CODFOR = "PREVAP",
+                FCRMVH_NROFOR = LastPrevap + 1,//"OBTENER Nro PREVENTA",
+                FCRMVH_NROGEN = LastPrevap + 1,//"OBTENER Nro PREVENTA",
                 FCRMVH_CIRCOM = "0100",
                 FCRMVH_CIRGEN = "0100",
                 FCRMVH_CIRAPL = "0100",
@@ -210,7 +275,7 @@ namespace Cabodi.Controllers.V2_0
                 FCRMVH_EMPGEN = "CABODI",
                 FCRMVH_EMPFST = "CABODI",
                 FCRMVH_MODGEN = "FC",
-                FCRMVH_CODGEN = "PREVEN",
+                FCRMVH_CODGEN = "PREVAP",
                 FCRMVH_COFLIS = "PESOS",
                 FCRMVH_COFDEU = "PESOS",
                 FCRMVH_COFFAC = "PESOS",
@@ -235,7 +300,7 @@ namespace Cabodi.Controllers.V2_0
             return NewPreventa;
         }
 
-        private List<ItemPreVenta> MapearItemPreVenta(PreventaInternalModel items, PreVenta LastPreventa, Cliente cliente)
+        private List<ItemPreVenta> MapearItemPreVenta(PreventaInternalModel items, int LastPrevap, Cliente cliente)
         {
             DateTime? _fechaHasta;
             if (items.FechaHasta == null)
@@ -265,13 +330,13 @@ namespace Cabodi.Controllers.V2_0
                 var NewItem = new ItemPreVenta()
                 {
                     FCRMVI_MODFOR = "FC",
-                    FCRMVI_CODFOR = "PREVEN",
-                    FCRMVI_NROFOR = LastPreventa.FCRMVH_NROFOR + 1,//"OBTENER Nro PREVENTA",
+                    FCRMVI_CODFOR = "PREVAP",
+                    FCRMVI_NROFOR = LastPrevap + 1,//"OBTENER Nro PREVENTA",
                     FCRMVI_NROITM = nroItem,
                     FCRMVI_NIVEXP = "1",
                     FCRMVI_MODAPL = "FC",
-                    FCRMVI_CODAPL = "PREVEN",
-                    FCRMVI_NROAPL = LastPreventa.FCRMVH_NROFOR + 1,//"OBTENER Nro PREVENTA",
+                    FCRMVI_CODAPL = "PREVAP",
+                    FCRMVI_NROAPL = LastPrevap + 1,//"OBTENER Nro PREVENTA",
                     FCRMVI_ITMAPL = nroItem,
                     FCRMVI_EXPAPL = "1",
                     FCRMVI_ARTCOD = i.CodigoArticulo,
@@ -314,8 +379,8 @@ namespace Cabodi.Controllers.V2_0
                     FCRMVI_FCHENT = items.FechaDesde == null ? items.FechaMovimiento : items.FechaDesde,
                     FCRMVI_FCHHAS = _fechaHasta,
                     FCRMVI_MODORI = "FC",
-                    FCRMVI_CODORI = "PREVEN",
-                    FCRMVI_NROORI = LastPreventa.FCRMVH_NROFOR + 1,
+                    FCRMVI_CODORI = "PREVAP",
+                    FCRMVI_NROORI = LastPrevap + 1,
                     FCRMVI_ITMORI = nroItem,
                     FCRMVI_EXPORI = "1",
                     FCRMVI_CUENTA = articulo.STMPDH_CUENVT,

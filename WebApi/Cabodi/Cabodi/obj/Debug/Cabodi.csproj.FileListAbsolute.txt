@@ -104,8 +104,8 @@ C:\Users\Nicolas Pochettino\source\repos\Cabodi\WebApi\Cabodi\Cabodi\bin\Antlr3.
 C:\Users\Nicolas Pochettino\source\repos\Cabodi\WebApi\Cabodi\Cabodi\bin\System.Diagnostics.DiagnosticSource.xml
 C:\Users\Nicolas Pochettino\source\repos\Cabodi\WebApi\Cabodi\Cabodi\bin\Microsoft.AspNet.TelemetryCorrelation.xml
 C:\Users\Nicolas Pochettino\source\repos\Cabodi\WebApi\Cabodi\Cabodi\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+C:\Users\Nicolas Pochettino\source\repos\Cabodi\WebApi\Cabodi\Cabodi\obj\Debug\Cabodi.csprojAssemblyReference.cache
 C:\Users\Nicolas Pochettino\source\repos\Cabodi\WebApi\Cabodi\Cabodi\obj\Debug\Cabodi.csproj.CoreCompileInputs.cache
 C:\Users\Nicolas Pochettino\source\repos\Cabodi\WebApi\Cabodi\Cabodi\obj\Debug\Cabodi.csproj.CopyComplete
 C:\Users\Nicolas Pochettino\source\repos\Cabodi\WebApi\Cabodi\Cabodi\obj\Debug\Cabodi.dll
 C:\Users\Nicolas Pochettino\source\repos\Cabodi\WebApi\Cabodi\Cabodi\obj\Debug\Cabodi.pdb
-C:\Users\Nicolas Pochettino\source\repos\Cabodi\WebApi\Cabodi\Cabodi\obj\Debug\Cabodi.csprojAssemblyReference.cache

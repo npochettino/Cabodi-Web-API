@@ -70,29 +70,5 @@ namespace Cabodi.Controllers.V2_0
             }
 
         }
-
-        /// <summary>
-        /// Obtener Producto por INDCOD
-        /// </summary>
-        /// <param name="codigo"></param>
-        /// <returns></returns>
-        //[Route("{codigo}")]
-        //public async Task<IHttpActionResult> GetProductoPorINDCODAsync(string codigo)
-        //{
-        //    try
-        //    {
-        //        var result = await _cabodiRepository.GetProductoPorINDCODAsync(codigo);
-
-        //        //Mapper
-        //        var mappedResult = _mapper.Map<ProductoModel>(result);
-
-        //        return Ok(mappedResult);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return InternalServerError(ex);
-        //    }
-
-        //}
     }
 }

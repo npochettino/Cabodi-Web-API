@@ -28,7 +28,8 @@ namespace Cabodi.Data.Repository
         void AddPreventa(PreVenta newPreventa);
 
         PreVenta GetLastPreventa();
-        Task<PreventaInternalModel[]> GetPreventasPorVendedorAsync(string id);
+        int GetLastNroPrevap();
+        Task<PreventaInternalModel[]> GetPreventasPorVendedorAsync(PrevapFilterInputModel model);
         List<PreventaInternalModel> GetPreventasHeaderPorVendedor(string id);
         List<ItemPreventaInternalModel> GetItemsPreventa(int id);
         Task<ItemPreVenta[]> GetItemsPrevenAsync(int preventID);
