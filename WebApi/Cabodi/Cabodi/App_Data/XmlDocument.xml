@@ -558,23 +558,9 @@
             <param name="model"></param>
             <returns></returns>
         </member>
-        <member name="M:Cabodi.Controllers.V2_0.PreventaController.GetPreventasHistorico(Cabodi.Models.Input.PrevapFilterInputModel)">
+        <member name="M:Cabodi.Controllers.V2_0.PreventaController.GetPreventa(System.Int32)">
             <summary>
-            GET PREVAP Filtradas por cliente, vendedor y rango de fechas
-            </summary>
-            <param name="model"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Cabodi.Controllers.V2_0.PreventaController.GetPreventasPorVendedor(Cabodi.Models.Input.PrevapFilterInputModel)">
-            <summary>
-            Obtener PREVAP Filtradas
-            </summary>
-            <param name="model"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Cabodi.Controllers.V2_0.PreventaController.GetItemsPreventa(System.Int32)">
-            <summary>
-            Obtener items de una PREVEN
+            Obtener PREVAP por id PREVAP
             </summary>
             <returns></returns>
         </member>

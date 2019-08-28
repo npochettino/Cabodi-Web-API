@@ -100,6 +100,52 @@ namespace Cabodi.Data.Repository
             return lastNroPreventa;
         }
 
+        public PreventaInternalModel GetPreventa(int id)
+        {
+            IQueryable<PreVenta> preventa = _context.Preventa.AsNoTracking();
+
+            preventa = preventa.Where(p => p.FCRMVH_NROFOR == id &&
+                                             p.FCRMVH_MODFOR == "FC" &&
+                                             p.FCRMVH_CODFOR == "PREVAP");
+
+            var prevent = preventa.FirstOrDefault();
+            var prevenResult = new PreventaInternalModel();
+
+            if (prevent != null)
+            {
+                var itemspreven_ = _context.ItemPreVentas.Where(i => i.FCRMVI_NROFOR == id &&
+                                                                     i.FCRMVI_CODFOR == "PREVAP" &&
+                                                                     i.FCRMVI_USERID == prevent.FCRMVH_USERID).ToList();
+
+                var itemsp_ = new List<ItemPreventaInternalModel>();
+                foreach (var i in itemspreven_)
+                {
+                    var itemActual = new ItemPreventaInternalModel()
+                    {
+                        Cantidad = i.FCRMVI_CANTID,
+                        CodigoArticulo = i.FCRMVI_ARTCOD,
+                        Precio = i.FCRMVI_PRECIO,
+                        TipoProducto = i.FCRMVI_TIPPRO,
+                        Total = i.FCRMVI_TOTLIN
+                    };
+                    itemsp_.Add(itemActual);
+                }
+
+                prevenResult.FechaDesde = prevent.FCRMVH_FCHDES;
+                prevenResult.FechaHasta = prevent.FCRMVH_FCHHAS;
+                prevenResult.FechaMovimiento = prevent.FCRMVH_FCHMOV;
+                prevenResult.NumeroCliente = prevent.FCRMVH_NROCTA;
+                prevenResult.UserName = prevent.FCRMVH_USERID;
+                prevenResult.NumeroPreventa = prevent.FCRMVH_NROFOR;
+                prevenResult.Observacion = prevent.FCRMVH_TEXTOS;
+                prevenResult.ItemsPreventa = itemsp_;
+            }
+            
+
+            return prevenResult;
+        }
+
+
         public async Task<PreventaInternalModel[]> GetPreventasPorVendedorAsync(PrevapFilterInputModel model)
         {
             var output = new PrevapOutputModel();
@@ -159,19 +205,7 @@ namespace Cabodi.Data.Repository
                 };
                 preventas_.Add(prevenResult);
             }
-
-            //if (preventas_ != null)
-            //{
-            //    output.Prevaps = preventas_;
-            //    output.Mensaje = "Retorno los resultados";
-            //    output.Resultado = true;
-            //}
-            //else
-            //{
-            //    output.Mensaje = "No se encontraron resultados";
-            //    output.Resultado = false;
-            //}
-
+            
             return await Task.Run(() => preventas_.ToArray());
         }
 

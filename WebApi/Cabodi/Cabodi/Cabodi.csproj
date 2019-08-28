@@ -233,6 +233,7 @@
     <Compile Include="Models\ListaPrecioModel.cs" />
     <Compile Include="Models\Output\AuthOutputModel.cs" />
     <Compile Include="Models\Output\ClienteOutputModel.cs" />
+    <Compile Include="Models\Output\DeletePrevapOutputModel.cs" />
     <Compile Include="Models\Output\PrevapOutputModel.cs" />
     <Compile Include="Models\Output\UpdatePasswordOutputModel.cs" />
     <Compile Include="Models\ProductoModel.cs" />

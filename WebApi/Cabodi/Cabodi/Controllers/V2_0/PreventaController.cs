@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Management;
 using Cabodi.Models;
+using Cabodi.Models.Output;
 
 namespace Cabodi.Controllers.V2_0
 {
@@ -59,77 +60,21 @@ namespace Cabodi.Controllers.V2_0
             }
         }
 
-        /// <summary>
-        /// GET PREVAP Filtradas por cliente, vendedor y rango de fechas
-        /// </summary>
-        /// <param name="model"></param>
-        /// <returns></returns>
-        [Route("historico")]
-        [HttpPost]
-        public async Task<IHttpActionResult> GetPreventasHistorico([FromBody] PrevapFilterInputModel model)
-        {
-            try
-            {
-                if (ModelState.IsValid)
-                {
-                    var result = await _cabodiRepository.GetPreventasPorVendedorAsync(model);
-
-                if (result == null) return NotFound();
-
-                return Ok(result);
-                }
-            }
-            catch (Exception ex)
-            {
-                return InternalServerError(ex);
-            }
-
-            return BadRequest();
-
-        }
+        
 
         /// <summary>
-        /// Obtener PREVAP Filtradas
+        /// Obtener PREVAP por id PREVAP
         /// </summary>
-        /// <param name="model"></param>
         /// <returns></returns>
-        [Route()]
+        [Route("{id}")]
         [HttpGet]
-        public async Task<IHttpActionResult> GetPreventasPorVendedor(PrevapFilterInputModel model)
+        public async Task<IHttpActionResult> GetPreventa([FromUri] int id)
         {
             try
             {
-                if (ModelState.IsValid)
-                {
-                    var result = await _cabodiRepository.GetPreventasPorVendedorAsync(model);
+                var result = _cabodiRepository.GetPreventa(id);
 
-                    if (result == null) return NotFound();
-
-                    return Ok(result);
-                }
-            }
-            catch (Exception ex)
-            {
-                return InternalServerError(ex);
-            }
-
-            return BadRequest();
-
-        }
-
-        /// <summary>
-        /// Obtener items de una PREVEN
-        /// </summary>
-        /// <returns></returns>
-        [Route("{id}/items")]
-        [HttpGet]
-        public async Task<IHttpActionResult> GetItemsPreventa([FromUri] int id)
-        {
-            try
-            {
-                var result = _cabodiRepository.GetItemsPreventa(id);
-
-                if (result == null) return NotFound();
+                if (result.NumeroPreventa == 0) return NotFound();
 
                 return Ok(result);
             }
@@ -202,8 +147,14 @@ namespace Cabodi.Controllers.V2_0
         {
             try
             {
-                var items = await _cabodiRepository.GetItemsPrevenAsync(id);
                 var preven = await _cabodiRepository.GetPrevenAsync(id);
+                if (preven.FCRMVH_ESTAUT != 0 && preven.FCRMVH_ESTAUT != null)
+                {
+                    var output = new DeletePrevapOutputModel()
+                        {Mensaje = "La PREVAP seleccionada no puede ser eliminada.", Resultado = false};
+                    return Ok(output);
+                }
+                var items = await _cabodiRepository.GetItemsPrevenAsync(id);
                 if (items == null || preven == null) return NotFound();
 
                 _cabodiRepository.DeleteItemsPreven(items);
@@ -211,7 +162,9 @@ namespace Cabodi.Controllers.V2_0
 
                 if (await _cabodiRepository.SaveChangesAsync())
                 {
-                    return Ok();
+                    var output = new DeletePrevapOutputModel()
+                        { Mensaje = "La PREVAP fue eliminada correctamente.", Resultado = true };
+                    return Ok(output);
                 }
                 else
                 {

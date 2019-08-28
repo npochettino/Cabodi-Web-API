@@ -36,5 +36,6 @@ namespace Cabodi.Data.Repository
         Task<PreVenta> GetPrevenAsync(int preventID);
         void DeleteItemsPreven(ItemPreVenta[] items);
         void DeletePreven(PreVenta preven);
+        PreventaInternalModel GetPreventa(int id);
     }
 }
