@@ -6,11 +6,11 @@ by editing this MSBuild file. In order to learn more about this please visit htt
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <TimeStampOfAssociatedLegacyPublishXmlFile />
-    <_PublishTargetUrl>C:\Users\Nicolas Pochettino\ADWEB\Cabodi\Deployment\08282019</_PublishTargetUrl>
+    <_PublishTargetUrl>C:\Users\Nicolas Pochettino\ADWEB\Cabodi\Deployment\10222019</_PublishTargetUrl>
   </PropertyGroup>
   <ItemGroup>
     <File Include="App_Data/XmlDocument.xml">
-      <publishTime>08/28/2019 09:37:14</publishTime>
+      <publishTime>10/22/2019 20:29:22</publishTime>
     </File>
     <File Include="Areas/HelpPage/HelpPage.css">
       <publishTime>04/13/2019 12:02:45</publishTime>
@@ -76,19 +76,19 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/13/2019 12:05:26</publishTime>
     </File>
     <File Include="bin/Antlr3.Runtime.dll">
-      <publishTime>10/09/2013 16:29:20</publishTime>
+      <publishTime>09/10/2013 16:29:20</publishTime>
     </File>
     <File Include="bin/Antlr3.Runtime.pdb">
-      <publishTime>10/09/2013 16:29:20</publishTime>
+      <publishTime>09/10/2013 16:29:20</publishTime>
     </File>
     <File Include="bin/Autofac.dll">
       <publishTime>03/21/2019 17:17:50</publishTime>
     </File>
     <File Include="bin/Autofac.Integration.WebApi.dll">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/26/2019 15:09:00</publishTime>
     </File>
     <File Include="bin/Autofac.Integration.WebApi.pdb">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/26/2019 15:09:00</publishTime>
     </File>
     <File Include="bin/Autofac.pdb">
       <publishTime>03/21/2019 17:17:50</publishTime>
@@ -100,10 +100,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>11/17/2018 10:14:56</publishTime>
     </File>
     <File Include="bin/Cabodi.dll">
-      <publishTime>08/28/2019 09:41:31</publishTime>
+      <publishTime>10/22/2019 20:31:11</publishTime>
     </File>
     <File Include="bin/Cabodi.pdb">
-      <publishTime>08/28/2019 09:41:31</publishTime>
+      <publishTime>10/22/2019 20:31:11</publishTime>
     </File>
     <File Include="bin/EntityFramework.dll">
       <publishTime>10/23/2017 13:15:18</publishTime>
@@ -115,10 +115,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/28/2017 15:05:26</publishTime>
     </File>
     <File Include="bin/Microsoft.AspNet.WebApi.Versioning.dll">
-      <publishTime>03/01/2019 20:53:44</publishTime>
+      <publishTime>01/03/2019 20:53:44</publishTime>
     </File>
     <File Include="bin/Microsoft.AspNet.WebApi.Versioning.pdb">
-      <publishTime>03/01/2019 20:51:04</publishTime>
+      <publishTime>01/03/2019 20:51:04</publishTime>
     </File>
     <File Include="bin/Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll">
       <publishTime>05/24/2018 13:38:22</publishTime>
@@ -292,7 +292,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/13/2019 12:05:26</publishTime>
     </File>
     <File Include="bin/System.Web.Optimization.dll">
-      <publishTime>11/02/2014 15:26:04</publishTime>
+      <publishTime>02/11/2014 15:26:04</publishTime>
     </File>
     <File Include="bin/System.Web.Razor.dll">
       <publishTime>04/13/2019 12:05:26</publishTime>

@@ -10,6 +10,8 @@
 
         public string DescripcionArticulo { get; set; }
 
+        public string IndCod { get; set; }
+
         public decimal? Cantidad { get; set; }
 
         public decimal? Precio { get; set; }

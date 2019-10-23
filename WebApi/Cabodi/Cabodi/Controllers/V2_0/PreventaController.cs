@@ -328,7 +328,7 @@ namespace Cabodi.Controllers.V2_0
                     FCRMVI_PCTBF8 = 0,
                     FCRMVI_PCTBF9 = 0,
                     FCRMVI_PCTBFN = 0,
-                    FCRMVI_TEXTOS = "0",
+                    FCRMVI_TEXTOS = null,
                     FCRMVI_FCHENT = items.FechaDesde == null ? items.FechaMovimiento : items.FechaDesde,
                     FCRMVI_FCHHAS = _fechaHasta,
                     FCRMVI_MODORI = "FC",

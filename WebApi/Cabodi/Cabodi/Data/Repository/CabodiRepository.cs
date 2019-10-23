@@ -120,10 +120,14 @@ namespace Cabodi.Data.Repository
                 var itemsp_ = new List<ItemPreventaInternalModel>();
                 foreach (var i in itemspreven_)
                 {
+                    var producto = GetProductoPorTIPPRO_ARTCOD(i.FCRMVI_TIPPRO, i.FCRMVI_ARTCOD);
+
                     var itemActual = new ItemPreventaInternalModel()
                     {
                         Cantidad = i.FCRMVI_CANTID,
-                        CodigoArticulo = i.FCRMVI_ARTCOD,
+                        CodigoArticulo = producto.STMPDH_ARTCOD,
+                        IndCod = producto.STMPDH_INDCOD,
+                        DescripcionArticulo = producto.STMPDH_DESCRP,
                         Precio = i.FCRMVI_PRECIO,
                         TipoProducto = i.FCRMVI_TIPPRO,
                         Total = i.FCRMVI_TOTLIN
