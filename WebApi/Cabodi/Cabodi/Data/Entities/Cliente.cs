@@ -364,9 +364,6 @@ namespace Cabodi.Models
 
         public DateTime? VTMCLH_FECMOD { get; set; }
 
-        [StringLength(15)]
-        public string VTMCLH_OLDUID { get; set; }
-
         [StringLength(1)]
         public string VTMCLH_ULTOPR { get; set; }
 
@@ -404,5 +401,8 @@ namespace Cabodi.Models
 
         [StringLength(10)]
         public string VTMCLH_CMPVER { get; set; }
+
+        [StringLength(250)]
+        public string USR_VTMCLH_CONAPP { get; set; }
     }
 }

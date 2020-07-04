@@ -65,10 +65,7 @@ namespace Cabodi.Models
         public DateTime? VTTVND_FECALT { get; set; }
 
         public DateTime? VTTVND_FECMOD { get; set; }
-
-        [StringLength(15)]
-        public string VTTVND_OLDUID { get; set; }
-
+        
         [StringLength(1)]
         public string VTTVND_ULTOPR { get; set; }
 

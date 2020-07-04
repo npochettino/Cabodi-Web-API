@@ -436,9 +436,6 @@ namespace Cabodi.Models
         [StringLength(10)]
         public string FCRMVI_CMPVER { get; set; }
 
-        [StringLength(15)]
-        public string FCRMVI_OLDUID { get; set; }
-
         [StringLength(1)]
         public string FCRMVI_CANCEL { get; set; }
 

@@ -7,7 +7,9 @@ namespace Cabodi.Models
 {
     public class ClienteModel
     {
-        public string VTMCLH_NROCTA { get; set; }
-        public string VTMCLH_NOMBRE { get; set; }
+        public string NroCuenta { get; set; }
+        public string Nombre { get; set; }
+        public string Password { get; set; }
+        public string NroVendedor { get; set; }
     }
 }

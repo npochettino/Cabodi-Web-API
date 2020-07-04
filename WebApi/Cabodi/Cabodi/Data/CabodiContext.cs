@@ -1,3 +1,5 @@
+using Cabodi.Data.Entities;
+
 namespace Cabodi.Models
 {
     using System;
@@ -12,12 +14,14 @@ namespace Cabodi.Models
         {
         }
 
-        public virtual DbSet<PreVenta> FCRMVH { get; set; }
-        public virtual DbSet<ItemPreVenta> FCRMVI { get; set; }
-        public virtual DbSet<Producto> STMPDH { get; set; }
-        public virtual DbSet<TipoProducto> STTTPH { get; set; }
+        public virtual DbSet<PreVenta> Preventa { get; set; }
+        public virtual DbSet<ItemPreVenta> ItemPreVentas { get; set; }
+        public virtual DbSet<Producto> Productos { get; set; }
+        public virtual DbSet<TipoProducto> TipoProductos { get; set; }
         public virtual DbSet<Cliente> Clientes { get; set; }
-        public virtual DbSet<Vendedor> VTTVND { get; set; }
+        public virtual DbSet<Vendedor> Vendedores { get; set; }
+        public virtual DbSet<ListaPrecio> ListaPrecios { get; set; }
+
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -542,10 +546,6 @@ namespace Cabodi.Models
                 .IsUnicode(false);
 
             modelBuilder.Entity<PreVenta>()
-                .Property(e => e.FCRMVH_OLDUID)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<PreVenta>()
                 .Property(e => e.FCRMVH_EMBARQ)
                 .IsUnicode(false);
 
@@ -1054,10 +1054,6 @@ namespace Cabodi.Models
 
             modelBuilder.Entity<ItemPreVenta>()
                 .Property(e => e.FCRMVI_CMPVER)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<ItemPreVenta>()
-                .Property(e => e.FCRMVI_OLDUID)
                 .IsUnicode(false);
 
             modelBuilder.Entity<ItemPreVenta>()
@@ -1686,10 +1682,6 @@ namespace Cabodi.Models
                 .IsUnicode(false);
 
             modelBuilder.Entity<Producto>()
-                .Property(e => e.STMPDH_OLDUID)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<Producto>()
                 .Property(e => e.STMPDH_CLASIF)
                 .IsUnicode(false);
 
@@ -1877,10 +1869,6 @@ namespace Cabodi.Models
 
             modelBuilder.Entity<TipoProducto>()
                 .Property(e => e.STTTPH_CARATR)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<TipoProducto>()
-                .Property(e => e.STTTPH_OLDUID)
                 .IsUnicode(false);
 
             modelBuilder.Entity<Cliente>()
@@ -2326,10 +2314,6 @@ namespace Cabodi.Models
                 .IsUnicode(false);
 
             modelBuilder.Entity<Cliente>()
-                .Property(e => e.VTMCLH_OLDUID)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<Cliente>()
                 .Property(e => e.VTMCLH_ULTOPR)
                 .IsFixedLength()
                 .IsUnicode(false);
@@ -2447,11 +2431,7 @@ namespace Cabodi.Models
                 .Property(e => e.USR_VTTVND_COMEXT)
                 .HasPrecision(5, 2);
 
-            modelBuilder.Entity<Vendedor>()
-                .Property(e => e.VTTVND_OLDUID)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<Vendedor>()
+           modelBuilder.Entity<Vendedor>()
                 .Property(e => e.VTTVND_ULTOPR)
                 .IsFixedLength()
                 .IsUnicode(false);
